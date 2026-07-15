@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/kreata.jpeg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/kreata.jpeg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description"
+    content="Kreata Designs - Your one-stop cyber café on Jogoo Road, Nairobi for printing, photocopying, government services (eCitizen, KRA, NTSA, HELB), graphic design, business services and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <title>Kreata Designs | Cyber Café &amp; Digital Services - Jogoo Road, Nairobi</title>
+  <script>
+    // Apply the saved/system theme before React mounts, to avoid a flash of the wrong theme.
+    (function () {
+      try {
+        var saved = localStorage.getItem('kreata-theme');
+        var theme =
+          saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      } catch (e) {
+        /* localStorage unavailable - default styles apply */
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+</body>
+
+</html>

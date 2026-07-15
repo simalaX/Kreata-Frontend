@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Kreata Designs — Base Styles, Reset & Theme Variables
+   ========================================================================== */
+
+:root {
+  /* Brand colors */
+  --color-gold: #FFC000;
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+
+  /* Font stack: real Franklin Gothic if the OS has it, otherwise Libre Franklin
+     (a free Google Font designed as an open homage to Franklin Gothic) */
+  --font-family: 'Franklin Gothic Medium', 'Franklin Gothic', 'Libre Franklin', 'Arial Narrow', Arial, sans-serif;
+
+  /* Light theme (default) */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F7F6F3;
+  --bg-card: #FFFFFF;
+  --bg-nav: #000000;
+  --text-primary: #14140F;
+  --text-secondary: #55534A;
+  --text-on-dark: #FFFFFF;
+  --border-color: #E8E6DF;
+  --shadow-color: rgba(0, 0, 0, 0.08);
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --transition: 0.2s ease;
+}
+
+[data-theme='dark'] {
+  --bg-primary: #0B0B0A;
+  --bg-secondary: #151512;
+  --bg-card: #1B1B17;
+  --bg-nav: #000000;
+  --text-primary: #F5F4EF;
+  --text-secondary: #B8B6AC;
+  --text-on-dark: #FFFFFF;
+  --border-color: #2B2A24;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color var(--transition), color var(--transition);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

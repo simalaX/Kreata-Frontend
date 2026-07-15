@@ -1,0 +1,15 @@
+{
+  "short_name": "Kreata Designs",
+  "name": "Kreata Designs - Cyber Café & Digital Services",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
