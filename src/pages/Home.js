@@ -113,7 +113,7 @@ const Home = () => {
                 onClick={() => setSelectedService(service)}
               >
                 <div className="design-service-icon">
-                  <FaPalette size={28} />
+                  <FaBrush size={28} />
                 </div>
                 <h3>{service}</h3>
               </div>
@@ -138,7 +138,7 @@ const Home = () => {
                 onClick={() => setSelectedService(service)}
               >
                 <div className="design-service-icon">
-                  <FaPalette size={28} />
+                  <FaBrush size={28} />
                 </div>
                 <h3>{service}</h3>
               </div>
@@ -157,7 +157,7 @@ const Home = () => {
                 <FaTimes />
               </button>
               <div className="modal-icon">
-                <FaPalette size={40} />
+                <FaBrush size={40} />
               </div>
               <h3>{selectedService}</h3>
               <p>
