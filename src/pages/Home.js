@@ -81,8 +81,8 @@ const Home = () => {
       {/* Featured Design Services */}
       <section className="section design-services-section">
         <div className="section-header">
-          <h2>Design & Marketing Services</h2>
-          <p>Search for the design service you need</p>
+          <h2>Our Design Services</h2>
+          <p>Search for what you need or explore our offerings</p>
         </div>
 
         {/* Search bar */}
@@ -91,7 +91,7 @@ const Home = () => {
             <FaSearch />
             <input
               type="text"
-              placeholder="Search by keyword (e.g., logo, flyer, banner, business card)..."
+              placeholder="Search (logo, flyer, banner...)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -104,24 +104,25 @@ const Home = () => {
         </div>
 
         {/* Design Services Grid */}
-        {filteredDesignServices.length > 0 ? (
-          <div className="design-services-grid">
+        {searchQuery && filteredDesignServices.length > 0 ? (
+          <div className="featured-services-grid">
             {filteredDesignServices.map((service, idx) => (
               <div
                 key={idx}
-                className="design-service-card"
+                className="featured-service-card"
                 onClick={() => setSelectedService(service)}
               >
-                <div className="design-service-icon">
+                <div className="featured-service-icon">
                   <FaBrush size={28} />
                 </div>
                 <h3>{service}</h3>
+                <p>Professional design solutions</p>
               </div>
             ))}
           </div>
         ) : searchQuery ? (
           <div className="empty-search">
-            <p>No services match "{searchQuery}". Try a different keyword.</p>
+            <p>No services match "<strong>{searchQuery}</strong>"</p>
             <button
               className="btn btn-outline"
               onClick={() => setSearchQuery('')}
@@ -130,20 +131,28 @@ const Home = () => {
             </button>
           </div>
         ) : (
-          <div className="design-services-grid">
-            {designServices.items.map((service, idx) => (
-              <div
-                key={idx}
-                className="design-service-card"
-                onClick={() => setSelectedService(service)}
-              >
-                <div className="design-service-icon">
-                  <FaBrush size={28} />
+          <>
+            <div className="featured-services-grid">
+              {designServices.items.slice(0, 6).map((service, idx) => (
+                <div
+                  key={idx}
+                  className="featured-service-card"
+                  onClick={() => setSelectedService(service)}
+                >
+                  <div className="featured-service-icon">
+                    <FaBrush size={28} />
+                  </div>
+                  <h3>{service}</h3>
+                  <p>Professional design solutions</p>
                 </div>
-                <h3>{service}</h3>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+            <div className="section-cta">
+              <Link to="/services" className="btn btn-outline">
+                View All Design Services
+              </Link>
+            </div>
+          </>
         )}
 
         {/* Service Detail Modal */}
