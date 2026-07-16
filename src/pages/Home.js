@@ -23,31 +23,32 @@ const Home = () => {
     fetchTestimonials();
   }, []);
 
-  // Extract design services (Graphic Design & Marketing)
+  // Extract design services (Graphic Design & Marketing) for featured display
   const designServices = servicesData.find((s) => s.category === 'Graphic Design & Marketing');
 
-  // Filter design services by search query
-  const filteredDesignServices = designServices
-    ? designServices.items.filter((item) =>
-      item.toLowerCase().includes(searchQuery.toLowerCase())
-    )
-    : [];
-
-  // Other prominent services (photography-related)
-  const photoServices = servicesData.find((s) => s.category === 'Document Services');
-  const photoItems = photoServices
-    ? photoServices.items.filter((item) =>
-      item.toLowerCase().includes('photo') || item.toLowerCase().includes('passport')
-    )
-    : [];
-
-  // Less prominent services
-  const otherServices = servicesData.filter(
-    (s) =>
-      s.category !== 'Graphic Design & Marketing' &&
-      s.category !== 'Document Services' &&
-      s.category !== 'Mobile & Technical Services'
+  // Build searchable index - all services from all categories
+  const allServicesFlat = servicesData.flatMap((cat) =>
+    cat.items.map((item) => ({
+      name: item,
+      category: cat.category,
+      icon: cat.icon,
+    }))
   );
+
+  // Filter all services by search query
+  const filteredServices = allServicesFlat.filter((service) =>
+    service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    service.category.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // If searching, show filtered results; otherwise show featured design services
+  const displayServices = searchQuery
+    ? filteredServices
+    : designServices.items.slice(0, 6).map((item) => ({
+      name: item,
+      category: 'Graphic Design & Marketing',
+      icon: designServices.icon,
+    }));
 
   return (
     <div className="home-page">
@@ -82,7 +83,7 @@ const Home = () => {
       <section className="section design-services-section">
         <div className="section-header">
           <h2>Our Design Services</h2>
-          <p>Search for what you need or explore our offerings</p>
+          <p>Search all our services or browse what we offer</p>
         </div>
 
         {/* Search bar */}
@@ -91,7 +92,7 @@ const Home = () => {
             <FaSearch />
             <input
               type="text"
-              placeholder="Search (logo, flyer, banner...)..."
+              placeholder="Search all services (logo, flyer, HELB, passport, banner...)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -103,24 +104,33 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Design Services Grid */}
-        {searchQuery && filteredDesignServices.length > 0 ? (
-          <div className="featured-services-grid">
-            {filteredDesignServices.map((service, idx) => (
-              <div
-                key={idx}
-                className="featured-service-card"
-                onClick={() => setSelectedService(service)}
-              >
-                <div className="featured-service-icon">
-                  <FaBrush size={28} />
+        {/* Services Grid */}
+        {displayServices.length > 0 ? (
+          <>
+            <div className="featured-services-grid">
+              {displayServices.map((service, idx) => (
+                <div
+                  key={idx}
+                  className="featured-service-card"
+                  onClick={() => setSelectedService(service)}
+                >
+                  <div className="featured-service-icon">
+                    <service.icon size={28} />
+                  </div>
+                  <h3>{service.name}</h3>
+                  <p className="service-category">{service.category}</p>
                 </div>
-                <h3>{service}</h3>
-                <p>Professional design solutions</p>
+              ))}
+            </div>
+            {!searchQuery && (
+              <div className="section-cta">
+                <Link to="/services" className="btn btn-outline">
+                  View All Services
+                </Link>
               </div>
-            ))}
-          </div>
-        ) : searchQuery ? (
+            )}
+          </>
+        ) : (
           <div className="empty-search">
             <p>No services match "<strong>{searchQuery}</strong>"</p>
             <button
@@ -130,29 +140,6 @@ const Home = () => {
               Clear Search
             </button>
           </div>
-        ) : (
-          <>
-            <div className="featured-services-grid">
-              {designServices.items.slice(0, 6).map((service, idx) => (
-                <div
-                  key={idx}
-                  className="featured-service-card"
-                  onClick={() => setSelectedService(service)}
-                >
-                  <div className="featured-service-icon">
-                    <FaBrush size={28} />
-                  </div>
-                  <h3>{service}</h3>
-                  <p>Professional design solutions</p>
-                </div>
-              ))}
-            </div>
-            <div className="section-cta">
-              <Link to="/services" className="btn btn-outline">
-                View All Design Services
-              </Link>
-            </div>
-          </>
         )}
 
         {/* Service Detail Modal */}
@@ -166,11 +153,12 @@ const Home = () => {
                 <FaTimes />
               </button>
               <div className="modal-icon">
-                <FaBrush size={40} />
+                <selectedService.icon size={40} />
               </div>
-              <h3>{selectedService}</h3>
+              <h3>{selectedService.name}</h3>
+              <p className="modal-category">{selectedService.category}</p>
               <p>
-                Get professional {selectedService.toLowerCase()} from our experienced team. We deliver
+                Get professional {selectedService.name.toLowerCase()} from our experienced team. We deliver
                 high-quality results tailored to your needs.
               </p>
               <div className="modal-actions">
@@ -192,48 +180,6 @@ const Home = () => {
             </div>
           </div>
         )}
-      </section>
-
-      {/* Photography Services */}
-      <section className="section section-alt">
-        <div className="section-header">
-          <h2>Photography Services</h2>
-          <p>Professional photo capture and printing</p>
-        </div>
-        <div className="services-preview-grid">
-          {photoItems.map((item, idx) => (
-            <div className="service-preview-card" key={idx}>
-              <h3>{item}</h3>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* All Other Services */}
-      <section className="section">
-        <div className="section-header">
-          <h2>Complete Service Directory</h2>
-          <p>Everything else we offer</p>
-        </div>
-        <div className="services-preview-grid">
-          {otherServices.map((cat) => (
-            <div className="service-preview-card" key={cat.category}>
-              <div className="service-preview-icon">
-                <cat.icon size={26} />
-              </div>
-              <h3>{cat.category}</h3>
-              <p>
-                {cat.items.slice(0, 2).join(', ')}
-                {cat.items.length > 2 ? ', and more' : ''}
-              </p>
-            </div>
-          ))}
-        </div>
-        <div className="section-cta">
-          <Link to="/services" className="btn btn-primary">
-            View All Services
-          </Link>
-        </div>
       </section>
 
       {/* Why us preview */}
@@ -282,6 +228,33 @@ const Home = () => {
           </div>
         </section>
       )}
+
+      {/* All Services Directory */}
+      <section className="section">
+        <div className="section-header">
+          <h2>Complete Service Directory</h2>
+          <p>Everything we offer</p>
+        </div>
+        <div className="services-preview-grid">
+          {servicesData.map((cat) => (
+            <div className="service-preview-card" key={cat.category}>
+              <div className="service-preview-icon">
+                <cat.icon size={26} />
+              </div>
+              <h3>{cat.category}</h3>
+              <p>
+                {cat.items.slice(0, 2).join(', ')}
+                {cat.items.length > 2 ? ', and more' : ''}
+              </p>
+            </div>
+          ))}
+        </div>
+        <div className="section-cta">
+          <Link to="/services" className="btn btn-primary">
+            View All Services
+          </Link>
+        </div>
+      </section>
 
       {/* Final CTA */}
       <section className="cta-banner">
