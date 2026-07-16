@@ -23,6 +23,14 @@ const Home = () => {
     fetchTestimonials();
   }, []);
 
+  // Helper function to generate WhatsApp link with custom message
+  const getWhatsAppLink = (serviceName) => {
+    const phoneNumber = businessInfo.whatsappLink.split('/').pop(); // Extract phone number
+    const message = `Hi, I'm interested in ${serviceName}. Can you provide a quote?`;
+    const encodedMessage = encodeURIComponent(message);
+    return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+  };
+
   // Extract design services (Graphic Design & Marketing) for featured display
   const designServices = servicesData.find((s) => s.category === 'Graphic Design & Marketing');
 
@@ -65,7 +73,7 @@ const Home = () => {
           </p>
           <div className="hero-actions">
             <a
-              href={businessInfo.whatsappLink}
+              href={getWhatsAppLink('General Inquiry')}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary"
@@ -163,7 +171,7 @@ const Home = () => {
               </p>
               <div className="modal-actions">
                 <a
-                  href={businessInfo.whatsappLink}
+                  href={getWhatsAppLink(selectedService.name)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-primary"
