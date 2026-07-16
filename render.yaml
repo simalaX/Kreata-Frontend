@@ -9,4 +9,3 @@ services:
       - key: REACT_APP_API_URL
         value: https://kreata-backend.onrender.com/api
         scope: build,runtime
-    staticPublishPath: build
