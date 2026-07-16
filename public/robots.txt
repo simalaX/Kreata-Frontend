@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /admin/dashboard/
+Disallow: /admin/login
 
-Sitemap: https://kreatadesigns.com/sitemap.xml
+Sitemap: https://www.kreatadesigns.com/sitemap.xml

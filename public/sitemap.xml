@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage - Highest priority -->
+  <url>
+    <loc>https://www.kreatadesigns.com/</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Services Page -->
+  <url>
+    <loc>https://www.kreatadesigns.com/services</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Service Categories (anchor links - optional but helpful) -->
+  <url>
+    <loc>https://www.kreatadesigns.com/services#graphic-design</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kreatadesigns.com/services#printing-photocopying</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kreatadesigns.com/services#government-services</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  
+  <!-- Gallery/Portfolio -->
+  <url>
+    <loc>https://www.kreatadesigns.com/gallery</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- About Us -->
+  <url>
+    <loc>https://www.kreatadesigns.com/about</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Testimonials -->
+  <url>
+    <loc>https://www.kreatadesigns.com/testimonials</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Contact -->
+  <url>
+    <loc>https://www.kreatadesigns.com/contact</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Additional service pages (if you create dedicated pages) -->
+  <!-- Uncomment and add as needed:
+  <url>
+    <loc>https://www.kreatadesigns.com/services/logo-design</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kreatadesigns.com/services/printing</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.kreatadesigns.com/services/ecitizen</loc>
+    <lastmod>2024-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  -->
+  
+</urlset>

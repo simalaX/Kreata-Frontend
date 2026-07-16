@@ -1,41 +1,79 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import servicesData from '../data/servicesData';
 
 const slugify = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
 const Services = () => {
   return (
-    <div className="page-container services-page">
-      <div className="page-header">
-        <h1>Our Services</h1>
-        <p>
-          Kreata Designs offers a complete range of document, government, education, business,
-          design, and technical services — everything you need in one convenient location on
-          Jogoo Road.
-        </p>
-      </div>
+    <>
+      <Helmet>
+        <title>Services | Kreata Designs - Graphic Design & Printing Nairobi</title>
+        <meta
+          name="description"
+          content="Explore Kreata Designs' full range of services: graphic design, printing, government services (eCitizen, KRA, NTSA, HELB), photocopying, and more in Nairobi."
+        />
+        <meta
+          name="keywords"
+          content="graphic design services, printing services, government services, logo design, flyer design, business cards, eCitizen services, Nairobi"
+        />
 
-      <div className="services-list">
-        {servicesData.map((cat) => (
-          <div className="service-category-card" key={cat.category} id={slugify(cat.category)}>
-            <div className="service-category-header">
-              <cat.icon size={28} />
-              <h2>{cat.category}</h2>
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.kreatadesigns.com/services" />
+        <meta property="og:title" content="Services | Kreata Designs" />
+        <meta
+          property="og:description"
+          content="Explore our full range of graphic design, printing, and government services in Nairobi."
+        />
+        <meta property="og:image" content="https://www.kreatadesigns.com/kreata.png" />
+
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://www.kreatadesigns.com/services" />
+        <meta property="twitter:title" content="Services | Kreata Designs" />
+        <meta
+          property="twitter:description"
+          content="Graphic design, printing, government services, and more from Kreata Designs in Nairobi."
+        />
+        <meta property="twitter:image" content="https://www.kreatadesigns.com/kreata.png" />
+
+        {/* Canonical URL */}
+        <link rel="canonical" href="https://www.kreatadesigns.com/services" />
+      </Helmet>
+
+      <div className="page-container services-page">
+        <div className="page-header">
+          <h1>Our Services</h1>
+          <p>
+            Kreata Designs offers a complete range of document, government, education, business,
+            design, and technical services — everything you need in one convenient location on
+            Jogoo Road.
+          </p>
+        </div>
+
+        <div className="services-list">
+          {servicesData.map((cat) => (
+            <div className="service-category-card" key={cat.category} id={slugify(cat.category)}>
+              <div className="service-category-header">
+                <cat.icon size={28} />
+                <h2>{cat.category}</h2>
+              </div>
+              <ul className="service-items-list">
+                {cat.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
-            <ul className="service-items-list">
-              {cat.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="services-cta">
-        <h2>Don't See What You Need?</h2>
-        <p>Get in touch — chances are we can still help.</p>
+        <div className="services-cta">
+          <h2>Don't See What You Need?</h2>
+          <p>Get in touch — chances are we can still help.</p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

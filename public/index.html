@@ -2,20 +2,57 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <link rel="icon" href="%PUBLIC_URL%/kreata.jpeg" type="image/jpeg" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/kreata.jpeg" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="%PUBLIC_URL%/kreata.jpeg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/kreata.jpeg" />
+
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Kreata Designs | Professional Graphic Design & Printing Services Nairobi">
   <meta name="description"
-    content="Kreata Designs - Your one-stop cyber café on Jogoo Road, Nairobi for printing, photocopying, government services (eCitizen, KRA, NTSA, HELB), graphic design, business services and more." />
+    content="Kreata Designs - Your one-stop cyber café on Jogoo Road, Nairobi. Professional graphic design, printing, photocopying, government services (eCitizen, KRA, NTSA, HELB), business services and more." />
+  <meta name="keywords"
+    content="graphic design Nairobi, printing services, logo design, flyer design, business cards, branding, cyber cafe Jogoo Road, eCitizen services, KRA services, NTSA services, HELB services" />
+  <meta name="author" content="Kreata Designs" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="English" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.kreatadesigns.com/" />
+  <meta property="og:title" content="Kreata Designs | Professional Graphic Design & Printing Services" />
+  <meta property="og:description"
+    content="Premium branding, graphic design, printing, and government services for businesses in Nairobi. Located on Jogoo Road." />
+  <meta property="og:image" content="https://www.kreatadesigns.com/kreata.png" />
+  <meta property="og:site_name" content="Kreata Designs" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://www.kreatadesigns.com/" />
+  <meta property="twitter:title" content="Kreata Designs | Professional Graphic Design & Printing" />
+  <meta property="twitter:description"
+    content="Premium branding, graphic design, printing, and government services for businesses in Nairobi." />
+  <meta property="twitter:image" content="https://www.kreatadesigns.com/kreata.png" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.kreatadesigns.com/" />
+
+  <!-- Font Links -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
-  <title>Kreata Designs | Cyber Café &amp; Digital Services - Jogoo Road, Nairobi</title>
+
+  <!-- Preconnect to external resources -->
+  <link rel="preconnect" href="https://api.anthropic.com" />
+
+  <title>Kreata Designs | Cyber Café & Digital Services - Jogoo Road, Nairobi</title>
+
+  <!-- Theme persistence script (run before React mounts) -->
   <script>
-    // Apply the saved/system theme before React mounts, to avoid a flash of the wrong theme.
     (function () {
       try {
         var saved = localStorage.getItem('kreata-theme');
@@ -32,6 +69,56 @@
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
+
+  <!-- Structured Data (JSON-LD) - LocalBusiness Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Kreata Designs",
+    "description": "Professional graphic design, printing, and government services cyber café in Nairobi",
+    "url": "https://www.kreatadesigns.com",
+    "telephone": "+254700123456",
+    "email": "info@kreatadesigns.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Jogoo Road",
+      "addressLocality": "Nairobi",
+      "addressRegion": "Nairobi County",
+      "postalCode": "00100",
+      "addressCountry": "KE"
+    },
+    "image": "https://www.kreatadesigns.com/kreata.png",
+    "priceRange": "$$",
+    "sameAs": [
+      "https://www.facebook.com/kreatadesigns",
+      "https://www.instagram.com/kreatadesigns",
+      "https://www.twitter.com/kreatadesigns"
+    ]
+  }
+  </script>
+
+  <!-- Organization Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Kreata Designs",
+    "url": "https://www.kreatadesigns.com",
+    "logo": "https://www.kreatadesigns.com/kreata.png",
+    "sameAs": [
+      "https://www.facebook.com/kreatadesigns",
+      "https://www.instagram.com/kreatadesigns",
+      "https://www.twitter.com/kreatadesigns"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "Customer Service",
+      "telephone": "+254700123456",
+      "email": "info@kreatadesigns.com"
+    }
+  }
+  </script>
 </body>
 
 </html>
