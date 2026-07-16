@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowRight, FaStar, FaWhatsapp, FaTimes, FaSearch } from 'react-icons/fa';
+import { FaArrowRight, FaStar, FaWhatsapp, FaTimes, FaSearch, FaBrush } from 'react-icons/fa';
 import MotorbikeDelivery from '../components/MotorbikeDelivery';
 import servicesData from '../data/servicesData';
 import { businessInfo, whyUsPoints } from '../data/siteData';
