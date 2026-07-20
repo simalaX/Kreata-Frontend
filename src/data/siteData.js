@@ -1,6 +1,6 @@
 export const businessInfo = {
   name: 'Kreata Designs',
-  tagline: "Your One-Stop Cyber Café & Digital Services Hub",
+  tagline: 'Professional Design & Graphics Services',
   address: 'Jogoo Road, Nairobi, Kenya',
   phone: '+254 700 022761',
   phoneLink: 'tel:+254700022761',
@@ -17,35 +17,51 @@ export const businessInfo = {
   mapEmbedUrl: 'https://www.google.com/maps?q=Jogoo+Road,+Nairobi,+Kenya&output=embed',
 };
 
+export const teamInfo = {
+  directors: [
+    { name: 'Emmanuel', title: 'Director' },
+    { name: 'Joseph', title: 'Director' },
+    { name: 'Peter', title: 'Director' },
+  ],
+  keyStaff: [
+    {
+      name: 'Simala Watts',
+      title: 'Chief Web Developer',
+      phone: '0718902699',
+      phoneLink: 'tel:+254718902699',
+    },
+  ],
+};
+
 export const whyUsPoints = [
   {
-    title: 'Everything Under One Roof',
+    title: 'Expert Design Team',
     description:
-      "From printing and photocopying to government services and graphic design, we bring dozens of services together so you don't have to run around Nairobi.",
+      'Our experienced designers create stunning logos, branding, and marketing materials tailored to your vision and business goals.',
   },
   {
-    title: 'We Know Government Portals Inside Out',
+    title: 'Quality Print Services',
     description:
-      'eCitizen, iTax, NTSA, HELB, KUCCPS — our team navigates these systems daily, helping you avoid costly mistakes and delays.',
+      'From business cards and flyers to large format banners, we deliver crisp, vibrant prints using premium materials and techniques.',
   },
   {
     title: 'Fast, Reliable Turnaround',
     description:
-      'Most document and printing jobs are completed while you wait. For bigger design projects, we keep you updated every step of the way.',
+      'Most design and printing jobs are completed quickly. For complex projects, we keep you updated every step of the way.',
   },
   {
     title: 'Affordable, Transparent Pricing',
     description:
-      "No hidden charges. We explain costs upfront so you always know what you're paying for.",
+      'No hidden charges. We explain costs upfront so you always know what you\'re paying for your design work.',
   },
   {
     title: 'Friendly, Professional Team',
     description:
-      'Our staff are trained to handle your documents and requests with care, patience, and confidentiality.',
+      'Our staff are trained to understand your needs, offer creative solutions, and handle your projects with care and attention to detail.',
   },
   {
     title: 'Always Within Reach',
     description:
-      "Visit us on Jogoo Road, or reach out anytime via WhatsApp — our online support never closes.",
+      'Visit us on Jogoo Road, or reach out anytime via WhatsApp — our team is ready to help bring your ideas to life.',
   },
 ];
