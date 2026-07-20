@@ -16,8 +16,7 @@ const Footer = () => {
             <span>Kreata Designs</span>
           </div>
           <p>
-            {businessInfo.tagline}. Printing, government services, graphic design and more — all
-            on Jogoo Road, Nairobi.
+            {businessInfo.tagline}. Printing, graphic design and more — all on Jogoo Road, Nairobi.
           </p>
           <div className="footer-socials">
             <a
@@ -50,6 +49,7 @@ const Footer = () => {
         <div className="footer-col">
           <h4>Quick Links</h4>
           <Link to="/services">Services</Link>
+          <Link to="/about">About</Link>
           <Link to="/gallery">Gallery</Link>
           <Link to="/why-us">Why Us</Link>
           <Link to="/testimonials">Testimonials</Link>
