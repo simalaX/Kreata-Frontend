@@ -69,7 +69,7 @@ const Home = () => {
           <h1>Professional Design & Graphics Services</h1>
           <p>
             Premium branding, graphic design, and marketing materials for individuals and businesses.
-            Quality printing and digital services all in one place.
+            Quality design and printing services all in one place.
           </p>
           <div className="hero-actions">
             <a
@@ -100,7 +100,7 @@ const Home = () => {
             <FaSearch />
             <input
               type="text"
-              placeholder="Search all services (logo, flyer, HELB, passport, banner...)..."
+              placeholder="Search services (logo, flyer, business cards, branding, banner...)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -267,7 +267,7 @@ const Home = () => {
       {/* Final CTA */}
       <section className="cta-banner">
         <h2>Visit Us Today on Jogoo Road</h2>
-        <p>Walk in, call, or message us on WhatsApp — we're ready to help.</p>
+        <p>Walk in, call, or message us on WhatsApp — we're ready to help with your design needs.</p>
         <div className="hero-actions">
           <Link to="/contact" className="btn btn-primary">
             Get in Touch
