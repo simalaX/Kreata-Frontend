@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowRight, FaStar, FaWhatsapp, FaTimes, FaSearch } from 'react-icons/fa';
+import { FaArrowRight, FaStar, FaWhatsapp, FaTimes, FaSearch, FaMoon, FaSun } from 'react-icons/fa';
 import Logo from '../components/Logo';
 import MotorbikeDelivery from '../components/MotorbikeDelivery';
 import servicesData from '../data/servicesData';
@@ -12,6 +12,7 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedService, setSelectedService] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -23,7 +24,14 @@ const Home = () => {
       }
     };
     fetchTestimonials();
-  }, []);
+
+    // Apply theme to document
+    if (isDarkMode) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }, [isDarkMode]);
 
   // Helper function to generate WhatsApp link
   const getWhatsAppLink = (serviceName) => {
@@ -39,6 +47,7 @@ const Home = () => {
       name: item,
       category: cat.category,
       icon: cat.icon,
+      description: cat.description,
     }))
   );
 
@@ -55,8 +64,21 @@ const Home = () => {
   // Get unique categories for filter buttons
   const categories = servicesData.map((cat) => cat.category);
 
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
-    <div className="home-page">
+    <div className={`home-page ${isDarkMode ? 'dark-theme' : 'light-theme'}`}>
+      {/* Theme Toggle Button */}
+      <button
+        className="theme-toggle-btn"
+        onClick={toggleTheme}
+        aria-label="Toggle theme"
+      >
+        {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
+      </button>
+
       {/* Hero Section */}
       <section className="hero hero-minimal">
         <div className="hero-shape hero-shape-1" />
@@ -74,7 +96,7 @@ const Home = () => {
               <FaSearch className="search-icon" />
               <input
                 type="text"
-                placeholder="Search services (logo, flyer, business cards, branding, banner...)..."
+                placeholder="Search services (logo, flyer, branding, web design, cybersecurity...)..."
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
@@ -92,7 +114,7 @@ const Home = () => {
           {/* Service Category Buttons */}
           {!searchQuery && (
             <div className="category-buttons">
-              {categories.slice(0, 3).map((category) => (
+              {categories.map((category) => (
                 <button
                   key={category}
                   className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
@@ -162,9 +184,8 @@ const Home = () => {
             </div>
             <h3>{selectedService.name}</h3>
             <p className="modal-category">{selectedService.category}</p>
-            <p>
-              Get professional {selectedService.name.toLowerCase()} from our experienced team. We deliver
-              high-quality results tailored to your needs.
+            <p className="modal-description">
+              {selectedService.description || `Get professional ${selectedService.name.toLowerCase()} from our experienced team. We deliver high-quality results tailored to your needs.`}
             </p>
             <div className="modal-actions">
               <a
@@ -232,33 +253,6 @@ const Home = () => {
           </div>
         </section>
       )}
-
-      {/* All Services Directory */}
-      <section className="section">
-        <div className="section-header">
-          <h2>Complete Service Directory</h2>
-          <p>Everything we offer</p>
-        </div>
-        <div className="services-preview-grid">
-          {servicesData.map((cat) => (
-            <div className="service-preview-card" key={cat.category}>
-              <div className="service-preview-icon">
-                <cat.icon size={26} />
-              </div>
-              <h3>{cat.category}</h3>
-              <p>
-                {cat.items.slice(0, 2).join(', ')}
-                {cat.items.length > 2 ? ', and more' : ''}
-              </p>
-            </div>
-          ))}
-        </div>
-        <div className="section-cta">
-          <Link to="/services" className="btn btn-primary">
-            View All Services
-          </Link>
-        </div>
-      </section>
 
       {/* Final CTA */}
       <section className="cta-banner">

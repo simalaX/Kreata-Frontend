@@ -1,83 +1,44 @@
 import {
-  FaFileAlt,
-  FaWifi,
-  FaLandmark,
-  FaGraduationCap,
-  FaBriefcase,
+  FaShieldAlt,
   FaPalette,
-  FaGlobe,
-  FaMobileAlt,
-  FaEllipsisH,
+  FaCode,
 } from 'react-icons/fa';
 
 const servicesData = [
   {
-    category: 'Document Services',
-    icon: FaFileAlt,
+    category: 'Cyber Services',
+    icon: FaShieldAlt,
+    description: 'Internet, computer, and IT support services',
     items: [
-      'Printing (black & white and color)',
-      'Photocopying',
-      'Scanning',
-      'Lamination',
-      'Binding',
-      'Typesetting',
-      'Document editing and formatting',
-      'CV and cover letter writing',
-      'Passport photo printing',
-      'ID photo capture',
-    ],
+      // Internet & Computer Services
+      'Email access',
+      'Online research',
+      'File downloads/uploads',
+      'Email creation',
+      'Online account setup',
+      'Social media account creation',
+      // Mobile & Technical Services
+      'Software installation',
+      'Phone flashing',
+      'Phone unlocking',
+      'Computer formatting',
+      'Virus removal',
+      'Data recovery',
+      'Computer troubleshooting',
+      // Digital & Online Services
+      'PDF conversion (Word ↔ PDF)',
+      'Online form filling',
+      'Visa application assistance',
+      'Scholarship applications',
+      'Job applications',
+    ]
   },
   {
-    category: 'Internet & Computer Services',
-    icon: FaWifi,
-    items: ['Email access', 'Online research', 'File downloads/uploads'],
-  },
-  {
-    category: 'Government Services',
-    icon: FaLandmark,
-    items: [
-      'eCitizen applications',
-      'KRA PIN registration',
-      'KRA tax returns (iTax)',
-      'NTSA services (driving licence renewal, smart DL)',
-      'Passport applications',
-      'Good Conduct applications',
-      'SHA/medical insurance registration',
-      'NSSF services',
-      'Birth certificate applications',
-      'Huduma-related online services',
-    ],
-  },
-  {
-    category: 'Education Services',
-    icon: FaGraduationCap,
-    items: [
-      'HELB applications',
-      'KUCCPS applications',
-      'University and college admissions',
-      'School portal access',
-      'Assignment typing',
-      'Exam registration',
-      'Certificate printing',
-    ],
-  },
-  {
-    category: 'Business Services',
-    icon: FaBriefcase,
-    items: [
-      'Business name registration',
-      'Company registration',
-      'Business permit applications',
-      'Invoice and receipt printing',
-      'Company profile design',
-      'Logo design',
-      'Branding materials',
-    ],
-  },
-  {
-    category: 'Graphic Design & Marketing',
+    category: 'Design and Photography',
     icon: FaPalette,
+    description: 'Creative design, graphics, and photography services',
     items: [
+      // Graphic Design & Marketing
       'Logo design',
       'Posters',
       'Flyers',
@@ -88,48 +49,62 @@ const servicesData = [
       'Certificates',
       'Calendars',
       'Social media posters',
-    ],
-  },
-  {
-    category: 'Digital & Online Services',
-    icon: FaGlobe,
-    items: [
-      'Email creation',
-      'Online account setup',
-      'Social media account creation',
-      'PDF conversion (Word ↔ PDF)',
-      'Online form filling',
-      'Visa application assistance',
-      'Scholarship applications',
-      'Job applications',
-    ],
-  },
-  {
-    category: 'Mobile & Technical Services',
-    icon: FaMobileAlt,
-    items: [
-      'Software installation',
-      'Phone flashing',
-      'Phone unlocking',
-      'Computer formatting',
-      'Virus removal',
-      'Data recovery',
-      'Computer troubleshooting',
-    ],
-  },
-  {
-    category: 'Other Services',
-    icon: FaEllipsisH,
-    items: [
+      // Photography Services
       'Passport-size photography',
+      'Passport photo printing',
+      'ID photo capture',
+      // Branding (from Business Services)
+      'Company profile design',
+      'Branding materials',
+    ]
+  },
+  {
+    category: 'Technical Services',
+    icon: FaCode,
+    description: 'Document services, printing, government, education & business assistance',
+    items: [
+      // Document Services
+      'Printing (black & white and color)',
+      'Photocopying',
+      'Scanning',
+      'Lamination',
+      'Binding',
+      'Typesetting',
+      'Document editing and formatting',
+      'CV and cover letter writing',
+      // Business Services
+      'Business name registration',
+      'Company registration',
+      'Business permit applications',
+      'Invoice and receipt printing',
+      // Government Services
+      'eCitizen applications',
+      'KRA PIN registration',
+      'KRA tax returns (iTax)',
+      'NTSA services (driving licence renewal, smart DL)',
+      'Passport applications',
+      'Good Conduct applications',
+      'SHA/medical insurance registration',
+      'NSSF services',
+      'Birth certificate applications',
+      'Huduma-related online services',
+      // Education Services
+      'HELB applications',
+      'KUCCPS applications',
+      'University and college admissions',
+      'School portal access',
+      'Assignment typing',
+      'Exam registration',
+      'Certificate printing',
+      // Other Services
       'Document translation',
       'Secretarial services',
       'Bulk printing',
       'Exam and project printing',
       'File storage on flash drives or cloud',
       'Stationery sales (pens, papers, envelopes, files, etc.)',
-    ],
-  },
+    ]
+  }
 ];
 
 export default servicesData;
