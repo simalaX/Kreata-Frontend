@@ -96,7 +96,7 @@ const Home = () => {
               <FaSearch className="search-icon" />
               <input
                 type="text"
-                placeholder="Search services (logo, flyer, branding, web design, cybersecurity...)..."
+                placeholder="Search services..."
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
@@ -138,7 +138,7 @@ const Home = () => {
                       onClick={() => setSelectedService(service)}
                     >
                       <div className="home-service-icon">
-                        <service.icon size={28} />
+                        <service.icon size={32} />
                       </div>
                       <h3>{service.name}</h3>
                     </div>
