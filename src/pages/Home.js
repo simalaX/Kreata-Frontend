@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowRight, FaStar, FaWhatsapp, FaTimes, FaSearch, FaBrush } from 'react-icons/fa';
+import { FaArrowRight, FaStar, FaWhatsapp, FaTimes, FaSearch } from 'react-icons/fa';
+import Logo from '../components/Logo';
 import MotorbikeDelivery from '../components/MotorbikeDelivery';
 import servicesData from '../data/servicesData';
 import { businessInfo, whyUsPoints } from '../data/siteData';
@@ -9,6 +10,7 @@ import { getTestimonials } from '../api/endpoints';
 const Home = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedService, setSelectedService] = useState(null);
 
   useEffect(() => {
@@ -23,16 +25,13 @@ const Home = () => {
     fetchTestimonials();
   }, []);
 
-  // Helper function to generate WhatsApp link with custom message
+  // Helper function to generate WhatsApp link
   const getWhatsAppLink = (serviceName) => {
-    const phoneNumber = businessInfo.whatsappLink.split('/').pop(); // Extract phone number
+    const phoneNumber = businessInfo.whatsappLink.split('/').pop();
     const message = `Hi, I'm interested in ${serviceName}. Can you provide a quote?`;
     const encodedMessage = encodeURIComponent(message);
     return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
   };
-
-  // Extract design services (Graphic Design & Marketing) for featured display
-  const designServices = servicesData.find((s) => s.category === 'Graphic Design & Marketing');
 
   // Build searchable index - all services from all categories
   const allServicesFlat = servicesData.flatMap((cat) =>
@@ -43,152 +42,149 @@ const Home = () => {
     }))
   );
 
-  // Filter all services by search query
-  const filteredServices = allServicesFlat.filter((service) =>
-    service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    service.category.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Filter services based on search query or selected category
+  const filteredServices = searchQuery
+    ? allServicesFlat.filter((service) =>
+      service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      service.category.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    : selectedCategory
+      ? allServicesFlat.filter((service) => service.category === selectedCategory)
+      : [];
 
-  // If searching, show filtered results; otherwise show featured design services
-  const displayServices = searchQuery
-    ? filteredServices
-    : designServices.items.slice(0, 6).map((item) => ({
-      name: item,
-      category: 'Graphic Design & Marketing',
-      icon: designServices.icon,
-    }));
+  // Get unique categories for filter buttons
+  const categories = servicesData.map((cat) => cat.category);
 
   return (
     <div className="home-page">
-      {/* Hero */}
-      <section className="hero">
+      {/* Hero Section */}
+      <section className="hero hero-minimal">
         <div className="hero-shape hero-shape-1" />
         <div className="hero-shape hero-shape-2" />
-        <div className="hero-content">
-          <span className="hero-eyebrow">Jogoo Road, Nairobi</span>
-          <h1>Professional Design & Graphics Services</h1>
-          <p>
-            Premium branding, graphic design, and marketing materials for individuals and businesses.
-            Quality design and printing services all in one place.
-          </p>
-          <div className="hero-actions">
-            <a
-              href={getWhatsAppLink('General Inquiry')}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary"
-            >
-              <FaWhatsapp /> Chat on WhatsApp
-            </a>
-            <Link to="/gallery" className="btn btn-outline">
-              View Our Work <FaArrowRight />
-            </Link>
+        <div className="hero-content hero-content-centered">
+          {/* Logo and Branding */}
+          <div className="hero-logo-section">
+            <Logo />
+            <h1 className="hero-brand-title">KreataDesigns</h1>
           </div>
-        </div>
-      </section>
 
-      {/* Featured Design Services */}
-      <section className="section design-services-section">
-        <div className="section-header">
-          <h2>Our Design Services</h2>
-          <p>Search all our services or browse what we offer</p>
-        </div>
-
-        {/* Search bar */}
-        <div className="design-search-container">
-          <div className="design-search-input">
-            <FaSearch />
-            <input
-              type="text"
-              placeholder="Search services (logo, flyer, business cards, branding, banner...)..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            {searchQuery && (
-              <button onClick={() => setSearchQuery('')} className="search-clear">
-                <FaTimes />
-              </button>
-            )}
+          {/* Search Bar */}
+          <div className="home-search-container">
+            <div className="home-search-input">
+              <FaSearch className="search-icon" />
+              <input
+                type="text"
+                placeholder="Search services (logo, flyer, business cards, branding, banner...)..."
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setSelectedCategory(null);
+                }}
+              />
+              {searchQuery && (
+                <button onClick={() => setSearchQuery('')} className="search-clear">
+                  <FaTimes />
+                </button>
+              )}
+            </div>
           </div>
-        </div>
 
-        {/* Services Grid */}
-        {displayServices.length > 0 ? (
-          <>
-            <div className="featured-services-grid">
-              {displayServices.map((service, idx) => (
-                <div
-                  key={idx}
-                  className="featured-service-card"
-                  onClick={() => setSelectedService(service)}
+          {/* Service Category Buttons */}
+          {!searchQuery && (
+            <div className="category-buttons">
+              {categories.slice(0, 3).map((category) => (
+                <button
+                  key={category}
+                  className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
+                  onClick={() => setSelectedCategory(category)}
                 >
-                  <div className="featured-service-icon">
-                    <service.icon size={28} />
-                  </div>
-                  <h3>{service.name}</h3>
-                  <p className="service-category">{service.category}</p>
-                </div>
+                  {category}
+                </button>
               ))}
             </div>
-            {!searchQuery && (
-              <div className="section-cta">
-                <Link to="/services" className="btn btn-outline">
-                  View All Services
-                </Link>
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="empty-search">
-            <p>No services match "<strong>{searchQuery}</strong>"</p>
-            <button
-              className="btn btn-outline"
-              onClick={() => setSearchQuery('')}
-            >
-              Clear Search
-            </button>
-          </div>
-        )}
+          )}
 
-        {/* Service Detail Modal */}
-        {selectedService && (
-          <div className="service-modal-overlay" onClick={() => setSelectedService(null)}>
-            <div className="service-modal" onClick={(e) => e.stopPropagation()}>
+          {/* Display Services Grid (if search or category selected) */}
+          {(searchQuery || selectedCategory) && (
+            <>
+              {filteredServices.length > 0 ? (
+                <div className="home-services-grid">
+                  {filteredServices.map((service, idx) => (
+                    <div
+                      key={idx}
+                      className="home-service-card"
+                      onClick={() => setSelectedService(service)}
+                    >
+                      <div className="home-service-icon">
+                        <service.icon size={28} />
+                      </div>
+                      <h3>{service.name}</h3>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="empty-search">
+                  <p>No services match your search</p>
+                  <button
+                    className="btn btn-outline"
+                    onClick={() => {
+                      setSearchQuery('');
+                      setSelectedCategory(null);
+                    }}
+                  >
+                    Clear Filters
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* Motorbike Delivery Section */}
+          <div className="delivery-section">
+            <MotorbikeDelivery />
+            <p className="delivery-text">Order Deliveries {businessInfo.phone}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Service Detail Modal */}
+      {selectedService && (
+        <div className="service-modal-overlay" onClick={() => setSelectedService(null)}>
+          <div className="service-modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="modal-close"
+              onClick={() => setSelectedService(null)}
+            >
+              <FaTimes />
+            </button>
+            <div className="modal-icon">
+              <selectedService.icon size={40} />
+            </div>
+            <h3>{selectedService.name}</h3>
+            <p className="modal-category">{selectedService.category}</p>
+            <p>
+              Get professional {selectedService.name.toLowerCase()} from our experienced team. We deliver
+              high-quality results tailored to your needs.
+            </p>
+            <div className="modal-actions">
+              <a
+                href={getWhatsAppLink(selectedService.name)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+              >
+                <FaWhatsapp /> Get a Quote
+              </a>
               <button
-                className="modal-close"
+                className="btn btn-outline"
                 onClick={() => setSelectedService(null)}
               >
-                <FaTimes />
+                Close
               </button>
-              <div className="modal-icon">
-                <selectedService.icon size={40} />
-              </div>
-              <h3>{selectedService.name}</h3>
-              <p className="modal-category">{selectedService.category}</p>
-              <p>
-                Get professional {selectedService.name.toLowerCase()} from our experienced team. We deliver
-                high-quality results tailored to your needs.
-              </p>
-              <div className="modal-actions">
-                <a
-                  href={getWhatsAppLink(selectedService.name)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary"
-                >
-                  <FaWhatsapp /> Get a Quote
-                </a>
-                <button
-                  className="btn btn-outline"
-                  onClick={() => setSelectedService(null)}
-                >
-                  Close
-                </button>
-              </div>
             </div>
           </div>
-        )}
-      </section>
+        </div>
+      )}
 
       {/* Why us preview */}
       <section className="section section-alt">
@@ -273,9 +269,6 @@ const Home = () => {
             Get in Touch
           </Link>
         </div>
-
-        {/* Animated Motorbike Delivery */}
-        <MotorbikeDelivery />
       </section>
     </div>
   );
