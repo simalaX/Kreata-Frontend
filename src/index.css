@@ -162,7 +162,7 @@ button {
   position: relative;
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  padding: 140px 24px 120px;
+  padding: 80px 24px 60px;
   margin-top: 76px;
   overflow: hidden;
   text-align: center;
@@ -230,7 +230,7 @@ button {
 .home-search-container {
   width: 100%;
   max-width: 700px;
-  margin-top: -10px;
+  margin-top: -20px;
   display: flex;
   justify-content: center;
 }
@@ -298,7 +298,7 @@ button {
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  margin-top: -10px;
+  margin-top: -15px;
 }
 
 .category-btn {
