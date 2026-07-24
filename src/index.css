@@ -765,11 +765,9 @@ button {
     font-size: 0.85rem;
   }
 
+  /* Hide theme toggle on mobile to prevent blocking hamburger menu */
   .theme-toggle-btn {
-    width: 45px;
-    height: 45px;
-    top: 15px;
-    right: 15px;
+    display: none;
   }
 
   .service-modal {
@@ -839,9 +837,8 @@ button {
     margin: 0 16px;
   }
 
+  /* Keep theme toggle hidden on smallest screens */
   .theme-toggle-btn {
-    width: 44px;
-    height: 44px;
-    font-size: 18px;
+    display: none;
   }
 }
