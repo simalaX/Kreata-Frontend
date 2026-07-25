@@ -83,7 +83,7 @@ const Home = () => {
       <section className="hero hero-minimal">
         <div className="hero-shape hero-shape-1" />
         <div className="hero-shape hero-shape-2" />
-        <div className="hero-content hero-content-centered">
+        <div className="hero-content hero-content-centered" style={{ gap: '0px' }}>
           {/* Logo and Branding */}
           <div className="hero-logo-section">
             <Logo />
@@ -91,7 +91,7 @@ const Home = () => {
           </div>
 
           {/* Search Bar */}
-          <div className="home-search-container">
+          <div className="home-search-container" style={{ marginTop: '60px', marginBottom: '0px' }}>
             <div className="home-search-input">
               <FaSearch className="search-icon" />
               <input
@@ -113,7 +113,7 @@ const Home = () => {
 
           {/* Service Category Buttons */}
           {!searchQuery && (
-            <div className="category-buttons">
+            <div className="category-buttons" style={{ marginTop: '45px' }}>
               {categories.map((category) => (
                 <button
                   key={category}
