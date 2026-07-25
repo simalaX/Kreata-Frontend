@@ -85,9 +85,9 @@ const Home = () => {
         <div className="hero-shape hero-shape-2" />
         <div className="hero-content hero-content-centered" style={{ gap: '0px' }}>
           {/* Logo and Branding */}
-          <div className="hero-logo-section">
+          <div className="hero-logo-section" style={{ animation: 'none', gap: '20px' }}>
             <Logo />
-            <h1 className="hero-brand-title">KreataDesigns</h1>
+            <h1 className="hero-brand-title" style={{ letterSpacing: '0.15em' }}>Kreata Designs</h1>
           </div>
 
           {/* Search Bar */}
