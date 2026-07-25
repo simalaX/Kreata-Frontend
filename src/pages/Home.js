@@ -91,7 +91,7 @@ const Home = () => {
           </div>
 
           {/* Search Bar */}
-          <div className="home-search-container" style={{ marginTop: '60px', marginBottom: '0px' }}>
+          <div className="home-search-container" style={{ marginTop: '30px', marginBottom: '0px' }}>
             <div className="home-search-input">
               <FaSearch className="search-icon" />
               <input
