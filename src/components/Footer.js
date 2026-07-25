@@ -25,7 +25,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               aria-label="Instagram"
             >
-              <FaInstagram size={18} />
+              <FaInstagram size={28} />
             </a>
             <a
               href={businessInfo.social.tiktok}
@@ -33,7 +33,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               aria-label="TikTok"
             >
-              <FaTiktok size={18} />
+              <FaTiktok size={28} />
             </a>
             <a
               href={businessInfo.whatsappLink}
@@ -41,7 +41,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               aria-label="WhatsApp"
             >
-              <FaWhatsapp size={18} />
+              <FaWhatsapp size={28} />
             </a>
           </div>
         </div>
