@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { FaWhatsapp } from 'react-icons/fa';
+import { FaWhatsapp, FaChevronDown, FaChevronUp, FaPhone, FaDownload } from 'react-icons/fa';
 import servicesData from '../data/servicesData';
 import { businessInfo } from '../data/siteData';
 
@@ -9,10 +9,23 @@ const slugify = (text) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
 const Services = () => {
   const [mounted, setMounted] = useState(false);
+  const [expandedCategories, setExpandedCategories] = useState({});
+  const [selectedService, setSelectedService] = useState(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const toggleCategory = (categoryName) => {
+    setExpandedCategories((prev) => ({
+      ...prev,
+      [categoryName]: !prev[categoryName],
+    }));
+  };
+
+  const handleServiceClick = (service, subcategoryName) => {
+    setSelectedService({ service, subcategoryName });
+  };
 
   if (!mounted || !servicesData || servicesData.length === 0) {
     return (
@@ -87,11 +100,23 @@ const Services = () => {
               }}
             >
               {/* Category Header */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '28px', borderBottom: '1px solid var(--border-color)', paddingBottom: '16px' }}>
+              <div
+                onClick={() => toggleCategory(cat.category)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '16px',
+                  marginBottom: '24px',
+                  cursor: 'pointer',
+                  paddingBottom: '16px',
+                  borderBottom: '1px solid var(--border-color)',
+                  userSelect: 'none',
+                }}
+              >
                 <div style={{ color: 'var(--accent-color)', fontSize: '28px', flexShrink: 0 }}>
                   <cat.icon size={28} />
                 </div>
-                <div>
+                <div style={{ flex: 1 }}>
                   <h2 style={{ fontSize: '1.5rem', margin: '0 0 6px 0', color: 'var(--text-primary)' }}>
                     {cat.category}
                   </h2>
@@ -99,46 +124,272 @@ const Services = () => {
                     {cat.description}
                   </p>
                 </div>
+                <div style={{ color: 'var(--accent-color)', fontSize: '20px', flexShrink: 0 }}>
+                  {expandedCategories[cat.category] ? <FaChevronUp /> : <FaChevronDown />}
+                </div>
               </div>
 
-              {/* Services List */}
-              <ul style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-                gap: '10px 24px',
-                listStyle: 'none',
-                padding: 0,
-                margin: 0,
-              }}>
-                {cat.items && cat.items.length > 0 && cat.items.map((item, itemIdx) => (
-                  <li
-                    key={itemIdx}
-                    style={{
-                      paddingLeft: '18px',
-                      position: 'relative',
-                      color: 'var(--text-secondary)',
-                      fontSize: '0.92rem',
-                      lineHeight: '1.5',
-                    }}
-                  >
-                    <span
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        top: '8px',
-                        width: '6px',
-                        height: '6px',
-                        borderRadius: '50%',
-                        backgroundColor: 'var(--accent-color)',
-                      }}
-                    />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              {/* Subcategories */}
+              {expandedCategories[cat.category] && (
+                <div>
+                  {cat.subcategories && cat.subcategories.map((subcat, subcatIdx) => (
+                    <div key={subcatIdx} style={{ marginBottom: '24px' }}>
+                      {/* Subcategory Title */}
+                      <h3 style={{
+                        fontSize: '1.1rem',
+                        color: 'var(--accent-color)',
+                        marginBottom: '12px',
+                        marginTop: '0',
+                        fontWeight: '600',
+                      }}>
+                        {subcat.name}
+                      </h3>
+
+                      {/* Services List */}
+                      <ul style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                        gap: '10px 24px',
+                        listStyle: 'none',
+                        padding: 0,
+                        margin: 0,
+                      }}>
+                        {subcat.items && subcat.items.length > 0 && subcat.items.map((item, itemIdx) => (
+                          <li
+                            key={itemIdx}
+                            onClick={() => handleServiceClick(item, subcat.name)}
+                            style={{
+                              paddingLeft: '18px',
+                              position: 'relative',
+                              color: 'var(--text-secondary)',
+                              fontSize: '0.92rem',
+                              lineHeight: '1.5',
+                              cursor: 'pointer',
+                              transition: 'all 0.3s ease',
+                              padding: '8px 12px 8px 18px',
+                              borderRadius: '6px',
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.backgroundColor = 'rgba(255, 192, 0, 0.08)';
+                              e.currentTarget.style.color = 'var(--accent-color)';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.backgroundColor = 'transparent';
+                              e.currentTarget.style.color = 'var(--text-secondary)';
+                            }}
+                          >
+                            <span
+                              style={{
+                                position: 'absolute',
+                                left: 6,
+                                top: '14px',
+                                width: '6px',
+                                height: '6px',
+                                borderRadius: '50%',
+                                backgroundColor: 'var(--accent-color)',
+                              }}
+                            />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>
+
+        {/* Service Detail Modal */}
+        {selectedService && (
+          <div
+            onClick={() => setSelectedService(null)}
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.5)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1000,
+              padding: '24px',
+            }}
+          >
+            <div
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                backgroundColor: 'var(--card-bg)',
+                borderRadius: '12px',
+                padding: '32px',
+                maxWidth: '500px',
+                width: '100%',
+                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+              }}
+            >
+              <h3 style={{ fontSize: '1.4rem', marginBottom: '8px', color: 'var(--text-primary)' }}>
+                {selectedService.service}
+              </h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--accent-color)', marginBottom: '20px', fontWeight: '600' }}>
+                {selectedService.subcategoryName}
+              </p>
+
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-secondary)', lineHeight: '1.6', marginBottom: '24px' }}>
+                Thank you for your interest in this service. Get in touch with us through any of the methods below to learn more and get started.
+              </p>
+
+              {/* Contact Options */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '24px' }}>
+                <a
+                  href={businessInfo.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '13px 20px',
+                    backgroundColor: '#25D366',
+                    color: 'white',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    fontWeight: '600',
+                    fontSize: '0.95rem',
+                    transition: 'all 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.opacity = '0.9';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.opacity = '1';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <FaWhatsapp size={18} /> Message on WhatsApp
+                </a>
+                <a
+                  href={businessInfo.phoneLink}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '13px 20px',
+                    backgroundColor: 'var(--accent-color)',
+                    color: 'var(--button-text)',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    fontWeight: '600',
+                    fontSize: '0.95rem',
+                    transition: 'all 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.opacity = '0.9';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.opacity = '1';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                  }}
+                >
+                  <FaPhone size={16} /> Call Us: {businessInfo.phone}
+                </a>
+                <Link
+                  to="/contact"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '13px 20px',
+                    backgroundColor: 'var(--bg-secondary)',
+                    color: 'var(--text-primary)',
+                    borderRadius: '8px',
+                    textDecoration: 'none',
+                    fontWeight: '600',
+                    fontSize: '0.95rem',
+                    border: '2px solid var(--border-color)',
+                    transition: 'all 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--accent-color)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--border-color)';
+                  }}
+                >
+                  Email Us
+                </Link>
+              </div>
+
+              {/* Download Option */}
+              <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '20px' }}>
+                <button
+                  onClick={() => {
+                    const element = document.createElement('a');
+                    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(selectedService.service));
+                    element.setAttribute('download', `${selectedService.service}.txt`);
+                    element.style.display = 'none';
+                    document.body.appendChild(element);
+                    element.click();
+                    document.body.removeChild(element);
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    width: '100%',
+                    padding: '12px 16px',
+                    backgroundColor: 'transparent',
+                    color: 'var(--accent-color)',
+                    border: '2px solid var(--accent-color)',
+                    borderRadius: '8px',
+                    fontWeight: '600',
+                    fontSize: '0.9rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(255, 192, 0, 0.1)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
+                >
+                  <FaDownload size={14} /> Download Service Info
+                </button>
+              </div>
+
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedService(null)}
+                style={{
+                  marginTop: '16px',
+                  width: '100%',
+                  padding: '12px',
+                  backgroundColor: 'var(--bg-secondary)',
+                  color: 'var(--text-primary)',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontWeight: '600',
+                  fontSize: '0.9rem',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--border-color)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--bg-secondary)';
+                }}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* CTA Section */}
         <div style={{ maxWidth: '1180px', margin: '60px auto 0', padding: '0 24px' }}>
