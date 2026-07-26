@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaArrowRight, FaStar, FaWhatsapp, FaTimes, FaSearch, FaMoon, FaSun } from 'react-icons/fa';
 import Logo from '../components/Logo';
 import MotorbikeDelivery from '../components/MotorbikeDelivery';
+import servicesData from '../data/servicesData';
 import { businessInfo, whyUsPoints } from '../data/siteData';
+import { getTestimonials } from '../api/endpoints';
 
 const Home = () => {
+  const [testimonials, setTestimonials] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedService, setSelectedService] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const res = await getTestimonials(true);
+        setTestimonials(res.data.slice(0, 3));
+      } catch (err) {
+        setTestimonials([]);
+      }
+    };
+    fetchTestimonials();
+
+    // Apply theme to document
     if (isDarkMode) {
       document.documentElement.setAttribute('data-theme', 'dark');
     } else {
@@ -19,18 +33,36 @@ const Home = () => {
     }
   }, [isDarkMode]);
 
-  const categories = [
-    { name: 'Cyber Services', description: 'Internet, computer, IT support' },
-    { name: 'Design', description: 'Graphic design, branding, creative services' },
-    { name: 'Photography', description: 'Photography services and photo printing' }
-  ];
-
+  // Helper function to generate WhatsApp link
   const getWhatsAppLink = (serviceName) => {
     const phoneNumber = businessInfo.whatsappLink.split('/').pop();
     const message = `Hi, I'm interested in ${serviceName}. Can you provide a quote?`;
     const encodedMessage = encodeURIComponent(message);
     return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
   };
+
+  // Build searchable index - all services from all categories
+  const allServicesFlat = servicesData.flatMap((cat) =>
+    cat.items.map((item) => ({
+      name: item,
+      category: cat.category,
+      icon: cat.icon,
+      description: cat.description,
+    }))
+  );
+
+  // Filter services based on search query or selected category
+  const filteredServices = searchQuery
+    ? allServicesFlat.filter((service) =>
+      service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      service.category.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    : selectedCategory
+      ? allServicesFlat.filter((service) => service.category === selectedCategory)
+      : [];
+
+  // Get unique categories for filter buttons
+  const categories = servicesData.map((cat) => cat.category);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
@@ -43,55 +75,25 @@ const Home = () => {
         className="theme-toggle-btn"
         onClick={toggleTheme}
         aria-label="Toggle theme"
-        style={{
-          position: 'fixed',
-          top: '20px',
-          right: '20px',
-          zIndex: 1000,
-          width: '50px',
-          height: '50px',
-          borderRadius: '50%',
-          backgroundColor: 'var(--accent-color)',
-          color: 'var(--button-text)',
-          border: 'none',
-          cursor: 'pointer',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-          transition: 'all 0.3s ease',
-        }}
       >
         {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
       </button>
 
       {/* Hero Section */}
-      <section className="hero" style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', paddingTop: '76px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ textAlign: 'center', padding: '40px 24px', maxWidth: '900px', margin: '0 auto', gap: '0px' }}>
-          {/* Logo and Title */}
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px', marginBottom: '40px', animation: 'none' }}>
+      <section className="hero hero-minimal">
+        <div className="hero-shape hero-shape-1" />
+        <div className="hero-shape hero-shape-2" />
+        <div className="hero-content hero-content-centered" style={{ gap: '0px' }}>
+          {/* Logo and Branding */}
+          <div className="hero-logo-section" style={{ animation: 'none', gap: '20px' }}>
             <Logo />
-            <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: 800, letterSpacing: '-0.02em', margin: 0, color: 'var(--accent-color)', letterSpacing: '0.15em' }}>
-              Kreata Designs
-            </h1>
+            <h1 className="hero-brand-title" style={{ letterSpacing: '0.15em' }}>Kreata Designs</h1>
           </div>
 
           {/* Search Bar */}
-          <div style={{ marginTop: '10px', marginBottom: '0px' }}>
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '14px',
-              background: 'var(--input-bg)',
-              border: '2px solid var(--accent-color)',
-              borderRadius: '50px',
-              padding: '14px 24px',
-              width: '100%',
-              maxWidth: '700px',
-              margin: '0 auto',
-              transition: 'all 0.3s ease',
-            }}>
-              <FaSearch style={{ color: 'var(--accent-color)' }} />
+          <div className="home-search-container" style={{ marginTop: '10px', marginBottom: '0px' }}>
+            <div className="home-search-input">
+              <FaSearch className="search-icon" />
               <input
                 type="text"
                 placeholder="Search services..."
@@ -100,137 +102,166 @@ const Home = () => {
                   setSearchQuery(e.target.value);
                   setSelectedCategory(null);
                 }}
-                style={{
-                  flex: 1,
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--text-primary)',
-                  fontSize: '0.95rem',
-                  outline: 'none',
-                  fontFamily: 'inherit',
-                }}
               />
               {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: 'var(--text-tertiary)',
-                    fontSize: '1.1rem',
-                    cursor: 'pointer',
-                    padding: 0,
-                  }}
-                >
+                <button onClick={() => setSearchQuery('')} className="search-clear">
                   <FaTimes />
                 </button>
               )}
             </div>
           </div>
 
-          {/* Category Buttons */}
+          {/* Service Category Buttons */}
           {!searchQuery && (
-            <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', width: '100%', marginTop: '45px' }}>
-              {categories.map((cat) => (
+            <div className="category-buttons" style={{ marginTop: '45px' }}>
+              {categories.map((category) => (
                 <button
-                  key={cat.name}
-                  onClick={() => setSelectedCategory(cat.name)}
-                  style={{
-                    padding: '12px 28px',
-                    borderRadius: '50px',
-                    border: '2px solid var(--accent-color)',
-                    background: selectedCategory === cat.name ? 'var(--accent-color)' : 'transparent',
-                    color: selectedCategory === cat.name ? 'var(--button-text)' : 'var(--accent-color)',
-                    fontWeight: 700,
-                    fontSize: '0.95rem',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                  }}
+                  key={category}
+                  className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
+                  onClick={() => setSelectedCategory(category)}
                 >
-                  {cat.name}
+                  {category}
                 </button>
               ))}
             </div>
           )}
 
-          {/* Motorbike Delivery */}
-          <div style={{ marginTop: '60px' }}>
+          {/* Display Services Grid (if search or category selected) */}
+          {(searchQuery || selectedCategory) && (
+            <>
+              {filteredServices.length > 0 ? (
+                <div className="home-services-grid">
+                  {filteredServices.map((service, idx) => (
+                    <div
+                      key={idx}
+                      className="home-service-card"
+                      onClick={() => setSelectedService(service)}
+                    >
+                      <div className="home-service-icon">
+                        <service.icon size={32} />
+                      </div>
+                      <h3>{service.name}</h3>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="empty-search">
+                  <p>No services match your search</p>
+                  <button
+                    className="btn btn-outline"
+                    onClick={() => {
+                      setSearchQuery('');
+                      setSelectedCategory(null);
+                    }}
+                  >
+                    Clear Filters
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+
+          {/* Motorbike Delivery Section */}
+          <div className="delivery-section">
             <MotorbikeDelivery />
-            <p style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--accent-color)', marginTop: '20px' }}>
-              Order Deliveries {businessInfo.phone}
-            </p>
+            <p className="delivery-text">Order Deliveries {businessInfo.phone}</p>
           </div>
         </div>
       </section>
 
-      {/* Why Us Section */}
-      <section style={{ padding: '72px 24px', backgroundColor: 'var(--bg-secondary)' }}>
-        <div style={{ maxWidth: '1180px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-            <h2 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.25rem)', marginBottom: '10px', color: 'var(--text-primary)' }}>
-              Why Choose Kreata Designs
-            </h2>
-          </div>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-            gap: '22px',
-          }}>
-            {whyUsPoints.slice(0, 3).map((point, idx) => (
-              <div
-                key={idx}
-                style={{
-                  background: 'var(--card-bg)',
-                  border: '1px solid var(--border-color)',
-                  borderLeft: '4px solid var(--accent-color)',
-                  borderRadius: '12px',
-                  padding: '26px',
-                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
-                }}
+      {/* Service Detail Modal */}
+      {selectedService && (
+        <div className="service-modal-overlay" onClick={() => setSelectedService(null)}>
+          <div className="service-modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="modal-close"
+              onClick={() => setSelectedService(null)}
+            >
+              <FaTimes />
+            </button>
+            <div className="modal-icon">
+              <selectedService.icon size={40} />
+            </div>
+            <h3>{selectedService.name}</h3>
+            <p className="modal-category">{selectedService.category}</p>
+            <p className="modal-description">
+              {selectedService.description || `Get professional ${selectedService.name.toLowerCase()} from our experienced team. We deliver high-quality results tailored to your needs.`}
+            </p>
+            <div className="modal-actions">
+              <a
+                href={getWhatsAppLink(selectedService.name)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
               >
-                <h3 style={{ fontSize: '1.05rem', marginBottom: '8px', color: 'var(--accent-color)', margin: 0 }}>
-                  {point.title}
-                </h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '0.92rem', margin: 0 }}>
-                  {point.description}
-                </p>
+                <FaWhatsapp /> Get a Quote
+              </a>
+              <button
+                className="btn btn-outline"
+                onClick={() => setSelectedService(null)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Why us preview */}
+      <section className="section section-alt">
+        <div className="section-header">
+          <h2>Why Choose Kreata Designs</h2>
+        </div>
+        <div className="why-us-grid">
+          {whyUsPoints.slice(0, 3).map((point) => (
+            <div className="why-us-card" key={point.title}>
+              <h3>{point.title}</h3>
+              <p>{point.description}</p>
+            </div>
+          ))}
+        </div>
+        <div className="section-cta">
+          <Link to="/why-us" className="btn btn-outline">
+            More Reasons to Choose Us
+          </Link>
+        </div>
+      </section>
+
+      {/* Testimonials preview */}
+      {testimonials.length > 0 && (
+        <section className="section">
+          <div className="section-header">
+            <h2>What Our Clients Say</h2>
+          </div>
+          <div className="testimonials-grid">
+            {testimonials.map((t) => (
+              <div className="testimonial-card" key={t.id}>
+                <div className="testimonial-stars">
+                  {Array.from({ length: t.rating }).map((_, i) => (
+                    <FaStar key={i} />
+                  ))}
+                </div>
+                <p>"{t.message}"</p>
+                <strong>{t.name}</strong>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* CTA Banner */}
-      <section style={{ backgroundColor: 'var(--bg-primary)', padding: '64px 24px' }}>
-        <div style={{ maxWidth: '1180px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '1.75rem', marginBottom: '10px', color: 'var(--text-primary)' }}>
-            Visit Us Today on Jogoo Road
-          </h2>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '26px' }}>
-            Walk in, call, or message us on WhatsApp — we're ready to help with your design needs.
-          </p>
-          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link
-              to="/contact"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '13px 26px',
-                backgroundColor: 'var(--accent-color)',
-                color: 'var(--button-text)',
-                borderRadius: '6px',
-                fontWeight: 700,
-                fontSize: '0.95rem',
-                textDecoration: 'none',
-                border: 'none',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-              }}
-            >
-              Get in Touch <FaArrowRight />
+          <div className="section-cta">
+            <Link to="/testimonials" className="btn btn-outline">
+              Read More Reviews
             </Link>
           </div>
+        </section>
+      )}
+
+      {/* Final CTA */}
+      <section className="cta-banner">
+        <h2>Visit Us Today on Jogoo Road</h2>
+        <p>Walk in, call, or message us on WhatsApp — we're ready to help with your design needs.</p>
+        <div className="hero-actions">
+          <Link to="/contact" className="btn btn-primary">
+            Get in Touch
+          </Link>
         </div>
       </section>
     </div>
