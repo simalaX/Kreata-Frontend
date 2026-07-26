@@ -47,28 +47,16 @@ const Services = () => {
           name="keywords"
           content="graphic design services, printing services, government services, logo design, flyer design, business cards, eCitizen services, Nairobi"
         />
-
-        {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.kreatadesigns.com/services" />
         <meta property="og:title" content="Services | Kreata Designs" />
-        <meta
-          property="og:description"
-          content="Explore our full range of graphic design, printing, and government services in Nairobi."
-        />
+        <meta property="og:description" content="Explore our full range of graphic design, printing, and government services in Nairobi." />
         <meta property="og:image" content="https://www.kreatadesigns.com/kreata.png" />
-
-        {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="https://www.kreatadesigns.com/services" />
         <meta property="twitter:title" content="Services | Kreata Designs" />
-        <meta
-          property="twitter:description"
-          content="Graphic design, printing, government services, and more from Kreata Designs in Nairobi."
-        />
+        <meta property="twitter:description" content="Graphic design, printing, government services, and more from Kreata Designs in Nairobi." />
         <meta property="twitter:image" content="https://www.kreatadesigns.com/kreata.png" />
-
-        {/* Canonical URL */}
         <link rel="canonical" href="https://www.kreatadesigns.com/services" />
       </Helmet>
 
@@ -80,72 +68,124 @@ const Services = () => {
           </h1>
           <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', maxWidth: '640px', margin: '0 auto' }}>
             Kreata Designs offers a complete range of document, government, education, business,
-            design, and technical services — everything you need in one convenient location on
-            Jogoo Road.
+            design, and technical services — everything you need in one convenient location on Jogoo Road.
           </p>
         </div>
 
         {/* Services Grid */}
         <div style={{ maxWidth: '1180px', margin: '0 auto', padding: '0 24px' }}>
-          {servicesData.map((cat, catIdx) => (
-            <div
-              key={catIdx}
-              id={slugify(cat.category)}
-              style={{
-                backgroundColor: 'var(--card-bg)',
-                border: '1px solid var(--border-color)',
-                borderRadius: '12px',
-                padding: '32px',
-                marginBottom: '32px',
-              }}
-            >
-              {/* Category Header */}
+          {servicesData.map((cat, catIdx) => {
+            const hasSubcategories = cat.subcategories && cat.subcategories.length > 0;
+
+            return (
               <div
-                onClick={() => toggleCategory(cat.category)}
+                key={catIdx}
+                id={slugify(cat.category)}
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  marginBottom: '24px',
-                  cursor: 'pointer',
-                  paddingBottom: '16px',
-                  borderBottom: '1px solid var(--border-color)',
-                  userSelect: 'none',
+                  backgroundColor: 'var(--card-bg)',
+                  border: '1px solid var(--border-color)',
+                  borderRadius: '12px',
+                  padding: '32px',
+                  marginBottom: '32px',
                 }}
               >
-                <div style={{ color: 'var(--accent-color)', fontSize: '28px', flexShrink: 0 }}>
-                  <cat.icon size={28} />
+                {/* Category Header - Clickable */}
+                <div
+                  onClick={() => hasSubcategories && toggleCategory(cat.category)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '16px',
+                    marginBottom: '24px',
+                    cursor: hasSubcategories ? 'pointer' : 'default',
+                    paddingBottom: '16px',
+                    borderBottom: '1px solid var(--border-color)',
+                    userSelect: 'none',
+                  }}
+                >
+                  <div style={{ color: 'var(--accent-color)', fontSize: '28px', flexShrink: 0 }}>
+                    <cat.icon size={28} />
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <h2 style={{ fontSize: '1.5rem', margin: '0 0 6px 0', color: 'var(--text-primary)' }}>
+                      {cat.category}
+                    </h2>
+                    <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', margin: 0 }}>
+                      {cat.description}
+                    </p>
+                  </div>
+                  {hasSubcategories && (
+                    <div style={{ color: 'var(--accent-color)', fontSize: '20px', flexShrink: 0 }}>
+                      {expandedCategories[cat.category] ? <FaChevronUp /> : <FaChevronDown />}
+                    </div>
+                  )}
                 </div>
-                <div style={{ flex: 1 }}>
-                  <h2 style={{ fontSize: '1.5rem', margin: '0 0 6px 0', color: 'var(--text-primary)' }}>
-                    {cat.category}
-                  </h2>
-                  <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', margin: 0 }}>
-                    {cat.description}
-                  </p>
-                </div>
-                <div style={{ color: 'var(--accent-color)', fontSize: '20px', flexShrink: 0 }}>
-                  {expandedCategories[cat.category] ? <FaChevronUp /> : <FaChevronDown />}
-                </div>
-              </div>
 
-              {/* Subcategories */}
-              {expandedCategories[cat.category] && (
-                <div>
-                  {cat.subcategories && cat.subcategories.map((subcat, subcatIdx) => (
-                    <div key={subcatIdx} style={{ marginBottom: '24px' }}>
-                      {/* Subcategory Title */}
-                      <h3 style={{
-                        fontSize: '1.1rem',
-                        color: 'var(--accent-color)',
-                        marginBottom: '12px',
-                        marginTop: '0',
-                        fontWeight: '600',
-                      }}>
-                        {subcat.name}
-                      </h3>
-
-                      {/* Services List */}
+                {/* Subcategories - Show if expanded or no subcategories (fallback to items) */}
+                {(expandedCategories[cat.category] || !hasSubcategories) && (
+                  <div>
+                    {hasSubcategories ? (
+                      // Show subcategories if they exist
+                      cat.subcategories.map((subcat, subcatIdx) => (
+                        <div key={subcatIdx} style={{ marginBottom: '24px' }}>
+                          <h3 style={{
+                            fontSize: '1.1rem',
+                            color: 'var(--accent-color)',
+                            marginBottom: '12px',
+                            marginTop: '0',
+                            fontWeight: '600',
+                          }}>
+                            {subcat.name}
+                          </h3>
+                          <ul style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                            gap: '10px 24px',
+                            listStyle: 'none',
+                            padding: 0,
+                            margin: 0,
+                          }}>
+                            {subcat.items && subcat.items.map((item, itemIdx) => (
+                              <li
+                                key={itemIdx}
+                                onClick={() => handleServiceClick(item, subcat.name)}
+                                style={{
+                                  paddingLeft: '18px',
+                                  position: 'relative',
+                                  color: 'var(--text-secondary)',
+                                  fontSize: '0.92rem',
+                                  lineHeight: '1.5',
+                                  cursor: 'pointer',
+                                  transition: 'all 0.3s ease',
+                                  padding: '8px 12px 8px 18px',
+                                  borderRadius: '6px',
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.backgroundColor = 'rgba(255, 192, 0, 0.08)';
+                                  e.currentTarget.style.color = 'var(--accent-color)';
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.backgroundColor = 'transparent';
+                                  e.currentTarget.style.color = 'var(--text-secondary)';
+                                }}
+                              >
+                                <span style={{
+                                  position: 'absolute',
+                                  left: 6,
+                                  top: '14px',
+                                  width: '6px',
+                                  height: '6px',
+                                  borderRadius: '50%',
+                                  backgroundColor: 'var(--accent-color)',
+                                }} />
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))
+                    ) : (
+                      // Fallback to items if no subcategories
                       <ul style={{
                         display: 'grid',
                         gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
@@ -154,10 +194,10 @@ const Services = () => {
                         padding: 0,
                         margin: 0,
                       }}>
-                        {subcat.items && subcat.items.length > 0 && subcat.items.map((item, itemIdx) => (
+                        {cat.items && cat.items.map((item, itemIdx) => (
                           <li
                             key={itemIdx}
-                            onClick={() => handleServiceClick(item, subcat.name)}
+                            onClick={() => handleServiceClick(item, cat.category)}
                             style={{
                               paddingLeft: '18px',
                               position: 'relative',
@@ -178,27 +218,25 @@ const Services = () => {
                               e.currentTarget.style.color = 'var(--text-secondary)';
                             }}
                           >
-                            <span
-                              style={{
-                                position: 'absolute',
-                                left: 6,
-                                top: '14px',
-                                width: '6px',
-                                height: '6px',
-                                borderRadius: '50%',
-                                backgroundColor: 'var(--accent-color)',
-                              }}
-                            />
+                            <span style={{
+                              position: 'absolute',
+                              left: 6,
+                              top: '14px',
+                              width: '6px',
+                              height: '6px',
+                              borderRadius: '50%',
+                              backgroundColor: 'var(--accent-color)',
+                            }} />
                             {item}
                           </li>
                         ))}
                       </ul>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* Service Detail Modal */}
