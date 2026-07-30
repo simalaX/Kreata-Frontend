@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { FiMenu, FiX, FiLogIn } from 'react-icons/fi';
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { FiMenu, FiX } from 'react-icons/fi';
 import { FaWhatsapp } from 'react-icons/fa';
 import Logo from './Logo';
 import ThemeToggle from './ThemeToggle';
@@ -16,6 +16,20 @@ const navLinks = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  // Keyboard shortcut for Admin access (Ctrl+Shift+A)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.ctrlKey && e.shiftKey && e.code === 'KeyA') {
+        e.preventDefault();
+        navigate('/admin/login');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [navigate]);
 
   const handleNavClick = () => {
     setOpen(false);
@@ -59,27 +73,11 @@ const Navbar = () => {
               <FaWhatsapp size={16} />
               <span>WhatsApp</span>
             </a>
-            <NavLink
-              to="/admin/login"
-              className="navbar-action-btn navbar-action-admin"
-              onClick={handleNavClick}
-            >
-              <FiLogIn size={16} />
-              <span>Admin</span>
-            </NavLink>
           </div>
         </nav>
 
         {/* Desktop Actions */}
         <div className="navbar-actions">
-          {/* Admin Link (Desktop) */}
-          <NavLink
-            to="/admin/login"
-            className={({ isActive }) => `navbar-admin-link ${isActive ? 'active' : ''}`}
-          >
-            Admin
-          </NavLink>
-
           {/* Divider */}
           <div className="navbar-divider"></div>
 
