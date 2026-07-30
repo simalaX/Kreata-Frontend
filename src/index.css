@@ -153,6 +153,17 @@ button {
   background-color: rgba(255, 192, 0, 0.25);
 }
 
+/* Navbar theme toggle wrapper - Hidden on mobile */
+.navbar-theme-desktop {
+  display: flex;
+  align-items: center;
+}
+
+/* Navbar divider wrapper - Hidden on mobile */
+.navbar-divider-desktop {
+  display: block;
+}
+
 /* ==========================================================================
    Hero Section — Premium Layout
    ========================================================================== */
@@ -723,6 +734,24 @@ button {
     display: none;
   }
 
+  /* Hide theme toggle and divider on tablet/mobile */
+  .navbar-theme-desktop {
+    display: none !important;
+  }
+
+  .navbar-divider-desktop {
+    display: none !important;
+  }
+
+  .navbar-actions {
+    gap: 8px;
+  }
+
+  .navbar-toggle {
+    z-index: 100;
+    position: relative;
+  }
+
   .hero,
   .hero-minimal {
     padding: 100px 20px 80px;
@@ -765,7 +794,7 @@ button {
     font-size: 0.85rem;
   }
 
-  /* Hide theme toggle on mobile to prevent blocking hamburger menu */
+  /* Hide theme toggle button on mobile to prevent blocking hamburger menu */
   .theme-toggle-btn {
     display: none;
   }
@@ -783,6 +812,24 @@ button {
 
   .navbar-brand {
     font-size: 0.95rem;
+  }
+
+  /* Ensure mobile menu button is not hidden on small screens */
+  .navbar-theme-desktop {
+    display: none !important;
+  }
+
+  .navbar-divider-desktop {
+    display: none !important;
+  }
+
+  .navbar-actions {
+    gap: 8px;
+  }
+
+  .navbar-toggle {
+    z-index: 100;
+    position: relative;
   }
 
   .hero,

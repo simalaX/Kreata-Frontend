@@ -78,11 +78,13 @@ const Navbar = () => {
 
         {/* Desktop Actions */}
         <div className="navbar-actions">
-          {/* Divider */}
-          <div className="navbar-divider"></div>
+          {/* Desktop Divider - Hidden on mobile */}
+          <div className="navbar-divider navbar-divider-desktop"></div>
 
-          {/* Theme Toggle */}
-          <ThemeToggle />
+          {/* Theme Toggle - Hidden on mobile to prevent overlap */}
+          <div className="navbar-theme-desktop">
+            <ThemeToggle />
+          </div>
 
           {/* Mobile Menu Toggle */}
           <button
@@ -98,6 +100,42 @@ const Navbar = () => {
 
       {/* Mobile Menu Backdrop */}
       {open && <div className="navbar-backdrop" onClick={() => setOpen(false)}></div>}
+
+      {/* Mobile Fix Styles */}
+      <style jsx>{`
+        /* Desktop - Show theme toggle and divider */
+        @media (min-width: 768px) {
+          .navbar-theme-desktop {
+            display: flex !important;
+          }
+
+          .navbar-divider-desktop {
+            display: block !important;
+          }
+        }
+
+        /* Mobile - Hide theme toggle and divider to prevent overlap with menu button */
+        @media (max-width: 767px) {
+          .navbar-theme-desktop {
+            display: none !important;
+          }
+
+          .navbar-divider-desktop {
+            display: none !important;
+          }
+
+          .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+
+          .navbar-toggle {
+            z-index: 100;
+            position: relative;
+          }
+        }
+      `}</style>
     </header>
   );
 };
