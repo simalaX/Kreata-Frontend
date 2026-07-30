@@ -24,6 +24,8 @@ const servicesData = [
       'CBC Stationery & Supplies',
       'Excel Data Entry & Word Document Formatting',
       'Computer Training & Hands-on Experience',
+      'HELB applications',
+      'KUCCPS applications',
       'Phone Repair & Hardware Troubleshooting',
       'Software installation',
       'Phone flashing',

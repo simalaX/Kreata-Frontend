@@ -54,7 +54,7 @@ const MotorbikeDelivery = () => {
         /* Road line */
         .road-line {
           position: absolute;
-          bottom: 70px;
+          bottom: 30px;
           left: 0;
           width: 100%;
           height: 2px;
@@ -139,7 +139,7 @@ const MotorbikeDelivery = () => {
           }
 
           .road-line {
-            bottom: 60px;
+            bottom: 25px;
           }
         }
 
@@ -166,7 +166,7 @@ const MotorbikeDelivery = () => {
           }
 
           .road-line {
-            bottom: 50px;
+            bottom: 20px;
           }
         }
       `}</style>
