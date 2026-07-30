@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowRight, FaStar, FaWhatsapp, FaTimes, FaSearch, FaMoon, FaSun } from 'react-icons/fa';
-import Logo from '../components/Logo';
+import { FaArrowRight, FaStar, FaWhatsapp, FaTimes, FaSearch, FaMoon, FaSun, FaChevronDown } from 'react-icons/fa';
 import MotorbikeDelivery from '../components/MotorbikeDelivery';
 import servicesData from '../data/servicesData';
 import { businessInfo, whyUsPoints } from '../data/siteData';
@@ -10,7 +9,7 @@ import { getTestimonials } from '../api/endpoints';
 const Home = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [openDropdown, setOpenDropdown] = useState(null);
   const [selectedService, setSelectedService] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(true);
 
@@ -51,21 +50,29 @@ const Home = () => {
     }))
   );
 
-  // Filter services based on search query or selected category
+  // Filter services based on search query
   const filteredServices = searchQuery
     ? allServicesFlat.filter((service) =>
       service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       service.category.toLowerCase().includes(searchQuery.toLowerCase())
     )
-    : selectedCategory
-      ? allServicesFlat.filter((service) => service.category === selectedCategory)
-      : [];
+    : [];
 
-  // Get unique categories for filter buttons
+  // Get services for a specific category dropdown
+  const getServicesByCategory = (category) => {
+    return allServicesFlat.filter((service) => service.category === category);
+  };
+
+  // Get unique categories
   const categories = servicesData.map((cat) => cat.category);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
+  };
+
+  const handleServiceSelect = (service) => {
+    setSelectedService(service);
+    setOpenDropdown(null);
   };
 
   return (
@@ -84,14 +91,11 @@ const Home = () => {
         <div className="hero-shape hero-shape-1" />
         <div className="hero-shape hero-shape-2" />
         <div className="hero-content hero-content-centered" style={{ gap: '0px' }}>
-          {/* Logo and Branding */}
-          <div className="hero-logo-section" style={{ animation: 'none', gap: '20px' }}>
-            <Logo />
-            <h1 className="hero-brand-title" style={{ letterSpacing: '0.15em' }}>Kreata Designs</h1>
-          </div>
+          {/* Brand Title Only (Logo Removed) */}
+          <h1 className="hero-brand-title" style={{ letterSpacing: '0.15em', marginTop: '0' }}>Kreata Designs</h1>
 
           {/* Search Bar */}
-          <div className="home-search-container" style={{ marginTop: '10px', marginBottom: '0px' }}>
+          <div className="home-search-container" style={{ marginTop: '30px', marginBottom: '0px' }}>
             <div className="home-search-input">
               <FaSearch className="search-icon" />
               <input
@@ -100,7 +104,7 @@ const Home = () => {
                 value={searchQuery}
                 onChange={(e) => {
                   setSearchQuery(e.target.value);
-                  setSelectedCategory(null);
+                  setOpenDropdown(null);
                 }}
               />
               {searchQuery && (
@@ -111,58 +115,119 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Service Category Buttons */}
+          {/* Service Category Dropdowns */}
           {!searchQuery && (
-            <div className="category-buttons" style={{ marginTop: '45px' }}>
+            <div className="category-dropdowns" style={{ marginTop: '45px', display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
               {categories.map((category) => (
-                <button
-                  key={category}
-                  className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
-                  onClick={() => setSelectedCategory(category)}
-                >
-                  {category}
-                </button>
+                <div key={category} style={{ position: 'relative' }}>
+                  <button
+                    className={`dropdown-btn ${openDropdown === category ? 'active' : ''}`}
+                    onClick={() => setOpenDropdown(openDropdown === category ? null : category)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      padding: '10px 18px',
+                      border: '2px solid var(--accent-color)',
+                      borderRadius: '25px',
+                      backgroundColor: openDropdown === category ? 'var(--accent-color)' : 'transparent',
+                      color: openDropdown === category ? 'var(--button-text)' : 'var(--accent-color)',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      fontSize: '0.95rem',
+                      transition: 'all 0.3s ease',
+                    }}
+                  >
+                    {category}
+                    <FaChevronDown size={12} style={{
+                      transform: openDropdown === category ? 'rotate(180deg)' : 'rotate(0deg)',
+                      transition: 'transform 0.3s ease',
+                    }} />
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {openDropdown === category && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '100%',
+                        left: '0',
+                        marginTop: '8px',
+                        backgroundColor: 'var(--card-bg)',
+                        border: '1px solid var(--border-color)',
+                        borderRadius: '8px',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                        zIndex: 1000,
+                        minWidth: '280px',
+                        maxHeight: '400px',
+                        overflowY: 'auto',
+                      }}
+                    >
+                      {getServicesByCategory(category).map((service, idx) => (
+                        <div
+                          key={idx}
+                          onClick={() => handleServiceSelect(service)}
+                          style={{
+                            padding: '12px 16px',
+                            borderBottom: idx < getServicesByCategory(category).length - 1 ? '1px solid var(--border-color)' : 'none',
+                            cursor: 'pointer',
+                            transition: 'background-color 0.2s ease',
+                            color: 'var(--text-secondary)',
+                            fontSize: '0.9rem',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = 'rgba(255, 192, 0, 0.1)';
+                            e.currentTarget.style.color = 'var(--accent-color)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = 'transparent';
+                            e.currentTarget.style.color = 'var(--text-secondary)';
+                          }}
+                        >
+                          {service.name}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
           )}
 
-          {/* Display Services Grid (if search or category selected) */}
-          {(searchQuery || selectedCategory) && (
-            <>
-              {filteredServices.length > 0 ? (
-                <div className="home-services-grid">
-                  {filteredServices.map((service, idx) => (
-                    <div
-                      key={idx}
-                      className="home-service-card"
-                      onClick={() => setSelectedService(service)}
-                    >
-                      <div className="home-service-icon">
-                        <service.icon size={32} />
-                      </div>
-                      <h3>{service.name}</h3>
-                    </div>
-                  ))}
+          {/* Search Results Grid */}
+          {searchQuery && filteredServices.length > 0 && (
+            <div className="home-services-grid" style={{ marginTop: '40px' }}>
+              {filteredServices.map((service, idx) => (
+                <div
+                  key={idx}
+                  className="home-service-card"
+                  onClick={() => handleServiceSelect(service)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <div className="home-service-icon">
+                    <service.icon size={32} />
+                  </div>
+                  <h3>{service.name}</h3>
                 </div>
-              ) : (
-                <div className="empty-search">
-                  <p>No services match your search</p>
-                  <button
-                    className="btn btn-outline"
-                    onClick={() => {
-                      setSearchQuery('');
-                      setSelectedCategory(null);
-                    }}
-                  >
-                    Clear Filters
-                  </button>
-                </div>
-              )}
-            </>
+              ))}
+            </div>
+          )}
+
+          {/* Empty Search Message */}
+          {searchQuery && filteredServices.length === 0 && (
+            <div className="empty-search" style={{ marginTop: '40px' }}>
+              <p>No services match your search</p>
+              <button
+                className="btn btn-outline"
+                onClick={() => setSearchQuery('')}
+              >
+                Clear Search
+              </button>
+            </div>
           )}
 
           {/* Motorbike Delivery Section */}
-          <div className="delivery-section">
+          <div className="delivery-section" style={{ marginTop: searchQuery ? '40px' : '60px' }}>
             <MotorbikeDelivery />
             <p className="delivery-text">Order Deliveries {businessInfo.phone}</p>
           </div>
