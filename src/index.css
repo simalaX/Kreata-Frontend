@@ -135,6 +135,22 @@ button {
   gap: 14px;
 }
 
+.navbar-toggle {
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  transition: var(--transition);
+}
+
+.navbar-toggle:hover {
+  color: var(--accent-color);
+}
+
 .theme-toggle {
   display: flex;
   align-items: center;
@@ -744,12 +760,20 @@ button {
   }
 
   .navbar-actions {
+    display: flex !important;
+    align-items: center;
     gap: 8px;
   }
 
   .navbar-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
     z-index: 100;
     position: relative;
+    color: #FFFFFF;
+    width: 40px;
+    height: 40px;
   }
 
   .hero,
@@ -824,12 +848,20 @@ button {
   }
 
   .navbar-actions {
+    display: flex !important;
+    align-items: center;
     gap: 8px;
   }
 
   .navbar-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
     z-index: 100;
     position: relative;
+    color: #FFFFFF;
+    width: 40px;
+    height: 40px;
   }
 
   .hero,
