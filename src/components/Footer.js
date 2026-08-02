@@ -20,7 +20,7 @@ const Footer = () => {
           </p>
           <div className="footer-socials">
             <a
-              href={businessInfo.social.instagram}
+              href="https://www.instagram.com/kreatadesigns254?igsh=MTF3cW42b2JxeDdzMw=="
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
