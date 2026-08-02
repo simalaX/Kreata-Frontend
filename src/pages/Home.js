@@ -92,7 +92,7 @@ const Home = () => {
         <div className="hero-shape hero-shape-2" />
         <div className="hero-content hero-content-centered" style={{ gap: '0px' }}>
           {/* Brand Title Only (Logo Removed) */}
-          <h1 className="hero-brand-title" style={{ letterSpacing: '0.15em', marginTop: '0' }}>Kreata Designs</h1>
+          <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0' }}>Kreata Designs</h1>
 
           {/* Search Bar */}
           <div className="home-search-container" style={{ marginTop: '30px', marginBottom: '0px' }}>
