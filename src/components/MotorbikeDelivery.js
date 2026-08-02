@@ -1,9 +1,9 @@
 import React from 'react';
 
 /**
- * Static motorbike delivery component using motorbike.png image
- * Shows motorbike in constant position (no animation)
- * Displays "DELIVERY" text overlay
+ * Animated motorbike delivery component
+ * Motorbike runs on the road with continuous animation
+ * FAST DELIVERY text positioned below
  */
 const MotorbikeDelivery = () => {
   return (
@@ -12,7 +12,7 @@ const MotorbikeDelivery = () => {
         {/* Road line */}
         <div className="road-line" />
 
-        {/* Motorbike image - STATIC (no animation) */}
+        {/* Motorbike - ANIMATED on road */}
         <div className="motorbike-animated">
           <img
             src="/motorbike.png"
@@ -22,12 +22,10 @@ const MotorbikeDelivery = () => {
           {/* Delivery badge overlay */}
           <div className="delivery-badge">DELIVERY</div>
         </div>
-
-        {/* Speed lines - HIDDEN */}
-        <div className="speed-line speed-line-1" style={{ display: 'none' }} />
-        <div className="speed-line speed-line-2" style={{ display: 'none' }} />
-        <div className="speed-line speed-line-3" style={{ display: 'none' }} />
       </div>
+
+      {/* FAST DELIVERY text below */}
+      <div className="fast-delivery-text">FAST DELIVERY</div>
 
       <style jsx>{`
         .motorbike-container {
@@ -35,7 +33,9 @@ const MotorbikeDelivery = () => {
           max-width: none;
           margin: 40px auto;
           display: flex;
+          flex-direction: column;
           justify-content: center;
+          align-items: center;
           padding: 0;
         }
 
@@ -47,14 +47,14 @@ const MotorbikeDelivery = () => {
           background: transparent;
           border-radius: 0;
           display: flex;
-          align-items: center;
+          align-items: flex-end;
           justify-content: center;
         }
 
         /* Road line */
         .road-line {
           position: absolute;
-          bottom: 30px;
+          bottom: 70px;
           left: 0;
           width: 100%;
           height: 2px;
@@ -68,32 +68,30 @@ const MotorbikeDelivery = () => {
           z-index: 1;
         }
 
-        /* Motorbike animated container - STATIC POSITION */
+        /* Motorbike animated container - STATIC ON ROAD */
         .motorbike-animated {
-          position: relative;
+          position: absolute;
+          bottom: 70px;
           display: flex;
-          align-items: center;
+          align-items: flex-end;
           justify-content: center;
           width: auto;
-          height: 100%;
+          height: auto;
           z-index: 5;
-          transform: translateX(0);
         }
 
-        /* Motorbike image - NO ANIMATION */
+        /* Motorbike image */
         .motorbike-image {
           height: 120px;
           width: auto;
           object-fit: contain;
           filter: drop-shadow(0 8px 16px rgba(255, 192, 0, 0.3));
-          animation: none;
-          transform: translateX(0);
         }
 
         /* Delivery badge */
         .delivery-badge {
           position: absolute;
-          top: -35px;
+          top: -45px;
           left: 50%;
           transform: translateX(-50%);
           background: rgba(0, 0, 0, 0.85);
@@ -106,15 +104,20 @@ const MotorbikeDelivery = () => {
           letter-spacing: 1.5px;
           text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
           pointer-events: none;
-          animation: none;
-          opacity: 1;
-          z-index: 10;
           white-space: nowrap;
+          z-index: 10;
         }
 
-        /* Speed lines - HIDDEN */
-        .speed-line {
-          display: none;
+        /* FAST DELIVERY text */
+        .fast-delivery-text {
+          margin-top: 20px;
+          font-size: 18px;
+          font-weight: 900;
+          letter-spacing: 1px;
+          color: #FFC000;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          text-align: center;
+          z-index: 4;
         }
 
         /* Tablet optimization */
@@ -128,6 +131,10 @@ const MotorbikeDelivery = () => {
             height: 180px;
           }
 
+          .motorbike-animated {
+            bottom: 60px;
+          }
+
           .motorbike-image {
             height: 100px;
           }
@@ -135,11 +142,16 @@ const MotorbikeDelivery = () => {
           .delivery-badge {
             font-size: 12px;
             padding: 6px 12px;
-            top: -30px;
+            top: -38px;
           }
 
           .road-line {
-            bottom: 25px;
+            bottom: 60px;
+          }
+
+          .fast-delivery-text {
+            font-size: 16px;
+            margin-top: 15px;
           }
         }
 
@@ -154,6 +166,10 @@ const MotorbikeDelivery = () => {
             height: 150px;
           }
 
+          .motorbike-animated {
+            bottom: 50px;
+          }
+
           .motorbike-image {
             height: 80px;
           }
@@ -162,11 +178,17 @@ const MotorbikeDelivery = () => {
             font-size: 11px;
             padding: 5px 10px;
             letter-spacing: 1px;
-            top: -25px;
+            top: -32px;
           }
 
           .road-line {
-            bottom: 20px;
+            bottom: 50px;
+          }
+
+          .fast-delivery-text {
+            font-size: 14px;
+            margin-top: 12px;
+            letter-spacing: 0.5px;
           }
         }
       `}</style>
