@@ -54,7 +54,7 @@ const MotorbikeDelivery = () => {
         /* Road line */
         .road-line {
           position: absolute;
-          bottom: 70px;
+          bottom: 55px;
           left: 0;
           width: 100%;
           height: 2px;
@@ -71,7 +71,7 @@ const MotorbikeDelivery = () => {
         /* Motorbike animated container - STATIC ON ROAD */
         .motorbike-animated {
           position: absolute;
-          bottom: 70px;
+          bottom: 55px;
           display: flex;
           align-items: flex-end;
           justify-content: center;
@@ -132,7 +132,7 @@ const MotorbikeDelivery = () => {
           }
 
           .motorbike-animated {
-            bottom: 60px;
+            bottom: 50px;
           }
 
           .motorbike-image {
@@ -146,7 +146,7 @@ const MotorbikeDelivery = () => {
           }
 
           .road-line {
-            bottom: 60px;
+            bottom: 50px;
           }
 
           .fast-delivery-text {
@@ -167,7 +167,7 @@ const MotorbikeDelivery = () => {
           }
 
           .motorbike-animated {
-            bottom: 50px;
+            bottom: 42px;
           }
 
           .motorbike-image {
@@ -182,7 +182,7 @@ const MotorbikeDelivery = () => {
           }
 
           .road-line {
-            bottom: 50px;
+            bottom: 42px;
           }
 
           .fast-delivery-text {
