@@ -75,6 +75,11 @@ const Home = () => {
     setOpenDropdown(null);
   };
 
+  const handleCategoryClick = (category) => {
+    // Open Services page in new tab with category param
+    window.open(`/services?category=${encodeURIComponent(category)}`, '_blank');
+  };
+
   return (
     <div className={`home-page ${isDarkMode ? 'dark-theme' : 'light-theme'}`}>
       {/* Theme Toggle Button */}
@@ -91,11 +96,27 @@ const Home = () => {
         <div className="hero-shape hero-shape-1" />
         <div className="hero-shape hero-shape-2" />
         <div className="hero-content hero-content-centered" style={{ gap: '0px' }}>
-          {/* Brand Title Only (Logo Removed) */}
-          <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0' }}>Kreata Designs</h1>
+          {/* Brand Logo */}
+          <div className="hero-logo-container" style={{ marginBottom: '16px' }}>
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 0 12px rgba(255, 192, 0, 0.6))' }}>
+              <circle cx="32" cy="32" r="24" fill="var(--accent-color)" opacity="0.9" />
+              <circle cx="32" cy="32" r="24" stroke="var(--accent-color)" strokeWidth="2" fill="none" opacity="0.5" />
+              <line x1="32" y1="8" x2="32" y2="20" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
+              <line x1="32" y1="44" x2="32" y2="56" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
+              <line x1="56" y1="32" x2="44" y2="32" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
+              <line x1="20" y1="32" x2="8" y2="32" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
+              <line x1="48.5" y1="15.5" x2="42.5" y2="21.5" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
+              <line x1="21.5" y1="42.5" x2="15.5" y2="48.5" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
+              <line x1="48.5" y1="48.5" x2="42.5" y2="42.5" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
+              <line x1="21.5" y1="21.5" x2="15.5" y2="15.5" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
+          </div>
+
+          {/* Brand Title */}
+          <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0', marginBottom: '30px' }}>Kreata Designs</h1>
 
           {/* Search Bar */}
-          <div className="home-search-container" style={{ marginTop: '30px', marginBottom: '0px' }}>
+          <div className="home-search-container" style={{ marginTop: '0px', marginBottom: '30px' }}>
             <div className="home-search-input">
               <FaSearch className="search-icon" />
               <input
@@ -117,79 +138,38 @@ const Home = () => {
 
           {/* Service Category Dropdowns */}
           {!searchQuery && (
-            <div className="category-dropdowns" style={{ marginTop: '45px', display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div className="category-dropdowns" style={{ marginTop: '20px', display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
               {categories.map((category) => (
-                <div key={category} style={{ position: 'relative' }}>
-                  <button
-                    className={`dropdown-btn ${openDropdown === category ? 'active' : ''}`}
-                    onClick={() => setOpenDropdown(openDropdown === category ? null : category)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '10px 18px',
-                      border: '2px solid var(--accent-color)',
-                      borderRadius: '25px',
-                      backgroundColor: openDropdown === category ? 'var(--accent-color)' : 'transparent',
-                      color: openDropdown === category ? 'var(--button-text)' : 'var(--accent-color)',
-                      fontWeight: '600',
-                      cursor: 'pointer',
-                      fontSize: '0.95rem',
-                      transition: 'all 0.3s ease',
-                    }}
-                  >
-                    {category}
-                    <FaChevronDown size={12} style={{
-                      transform: openDropdown === category ? 'rotate(180deg)' : 'rotate(0deg)',
-                      transition: 'transform 0.3s ease',
-                    }} />
-                  </button>
-
-                  {/* Dropdown Menu */}
-                  {openDropdown === category && (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        top: '100%',
-                        left: '0',
-                        marginTop: '8px',
-                        backgroundColor: 'var(--card-bg)',
-                        border: '1px solid var(--border-color)',
-                        borderRadius: '8px',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                        zIndex: 1000,
-                        minWidth: '280px',
-                        maxHeight: '400px',
-                        overflowY: 'auto',
-                      }}
-                    >
-                      {getServicesByCategory(category).map((service, idx) => (
-                        <div
-                          key={idx}
-                          onClick={() => handleServiceSelect(service)}
-                          style={{
-                            padding: '12px 16px',
-                            borderBottom: idx < getServicesByCategory(category).length - 1 ? '1px solid var(--border-color)' : 'none',
-                            cursor: 'pointer',
-                            transition: 'background-color 0.2s ease',
-                            color: 'var(--text-secondary)',
-                            fontSize: '0.9rem',
-                          }}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = 'rgba(255, 192, 0, 0.1)';
-                            e.currentTarget.style.color = 'var(--accent-color)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = 'transparent';
-                            e.currentTarget.style.color = 'var(--text-secondary)';
-                          }}
-                        >
-                          {service.name}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <button
+                  key={category}
+                  onClick={() => handleCategoryClick(category)}
+                  className="dropdown-btn"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '10px 18px',
+                    border: '2px solid var(--accent-color)',
+                    borderRadius: '25px',
+                    backgroundColor: 'transparent',
+                    color: 'var(--accent-color)',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    fontSize: '0.95rem',
+                    transition: 'all 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--accent-color)';
+                    e.currentTarget.style.color = 'var(--button-text)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.color = 'var(--accent-color)';
+                  }}
+                >
+                  {category}
+                  <FaChevronDown size={12} />
+                </button>
               ))}
             </div>
           )}
@@ -227,7 +207,7 @@ const Home = () => {
           )}
 
           {/* Motorbike Delivery Section */}
-          <div className="delivery-section" style={{ marginTop: searchQuery ? '40px' : '60px' }}>
+          <div className="delivery-section" style={{ marginTop: searchQuery ? '40px' : '50px' }}>
             <MotorbikeDelivery />
             <p className="delivery-text">Order Deliveries {businessInfo.phone}</p>
           </div>

@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FaShieldAlt, FaPalette, FaCamera, FaWhatsapp, FaPhone } from 'react-icons/fa';
 import { businessInfo } from '../data/siteData';
 
 const Services = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [selectedService, setSelectedService] = useState(null);
+  const location = useLocation();
+
+  // Check for category param in URL on load
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category');
+
+    if (categoryParam) {
+      const categoryIndex = servicesCategories.findIndex(cat => cat.name === decodeURIComponent(categoryParam));
+      if (categoryIndex !== -1) {
+        setExpandedIndex(categoryIndex);
+      }
+    }
+  }, [location.search]);
 
   const servicesCategories = [
     {
