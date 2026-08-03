@@ -244,7 +244,7 @@ const Home = () => {
       )}
 
       {/* Why us preview */}
-      <section className="section section-alt">
+      <section className="section section-alt" style={{ marginTop: '40px' }}>
         <div className="section-header">
           <h2>Why Choose Kreata Designs</h2>
         </div>

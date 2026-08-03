@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useLocation } from 'react-router-dom';
-import { FaShieldAlt, FaPalette, FaCamera, FaWhatsapp, FaPhone, FaMoon, FaSun } from 'react-icons/fa';
+import { FaShieldAlt, FaPalette, FaCamera, FaWhatsapp, FaPhone } from 'react-icons/fa';
 import { businessInfo } from '../data/siteData';
-import Logo from '../components/Logo';
 
 const Services = () => {
   // Define services categories first
@@ -157,21 +156,7 @@ const Services = () => {
 
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [selectedService, setSelectedService] = useState(null);
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const location = useLocation();
-
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
-  useEffect(() => {
-    // Apply theme to document
-    if (isDarkMode) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
-  }, [isDarkMode]);
 
   // Check for category param in URL on load
   useEffect(() => {
@@ -203,55 +188,7 @@ const Services = () => {
         <link rel="canonical" href="https://www.kreatadesigns.com/services" />
       </Helmet>
 
-      {/* Theme Toggle Button */}
-      <button
-        style={{
-          position: 'fixed',
-          top: '20px',
-          right: '20px',
-          width: '50px',
-          height: '50px',
-          borderRadius: '50%',
-          backgroundColor: 'var(--accent-color)',
-          border: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          zIndex: 1000,
-          fontSize: '20px',
-          color: 'var(--button-text)',
-        }}
-        onClick={toggleTheme}
-        aria-label="Toggle theme"
-      >
-        {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
-      </button>
-
-      {/* Navbar */}
-      <nav style={{
-        backgroundColor: 'var(--bg-secondary)',
-        padding: '16px 24px',
-        position: 'sticky',
-        top: 0,
-        zIndex: 999,
-        borderBottom: '1px solid var(--border-color)',
-      }}>
-        <div style={{ maxWidth: '1180px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '20px' }}>
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
-            <Logo size={40} />
-            <span style={{ fontWeight: '700', fontSize: '1.1rem', color: 'var(--text-primary)' }}>Kreata Designs</span>
-          </Link>
-          <div style={{ marginLeft: 'auto', display: 'flex', gap: '24px' }}>
-            <Link to="/" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: '600' }}>Home</Link>
-            <span style={{ color: 'var(--accent-color)', fontWeight: '700' }}>Services</span>
-            <Link to="/gallery" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: '600' }}>Gallery</Link>
-            <Link to="/contact" style={{ color: 'var(--text-secondary)', textDecoration: 'none', fontWeight: '600' }}>Contact</Link>
-          </div>
-        </div>
-      </nav>
-
-      <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', paddingTop: '60px', paddingBottom: '60px' }}>
+      <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', paddingTop: '80px', paddingBottom: '60px' }}>
         {/* Header */}
         <div style={{ maxWidth: '1180px', margin: '0 auto', padding: '0 24px', textAlign: 'center', marginBottom: '60px' }}>
           <h1 style={{ fontSize: '2.5rem', marginBottom: '16px', color: 'var(--text-primary)' }}>
