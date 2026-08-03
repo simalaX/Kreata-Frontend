@@ -98,16 +98,16 @@ const Home = () => {
         <div className="hero-shape hero-shape-2" />
         <div className="hero-content hero-content-centered" style={{ gap: '0px' }}>
           {/* Brand Logo */}
-          <div className="hero-logo-container" style={{ marginBottom: '12px' }}>
-            <Logo size={64} />
+          <div className="hero-logo-container" style={{ marginBottom: '16px' }}>
+            <Logo size={90} />
           </div>
 
           {/* Brand Title */}
-          <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0', marginBottom: '24px', fontSize: '2.8rem' }}>Kreata Designs</h1>
+          <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0', marginBottom: '32px', fontSize: '3.2rem' }}>Kreata Designs</h1>
 
           {/* Search Bar */}
-          <div className="home-search-container" style={{ marginTop: '0px', marginBottom: '18px' }}>
-            <div className="home-search-input">
+          <div className="home-search-container" style={{ marginTop: '0px', marginBottom: '28px', maxWidth: '600px', margin: '0 auto 28px' }}>
+            <div className="home-search-input" style={{ padding: '14px 20px', fontSize: '1.05rem', minHeight: '56px' }}>
               <FaSearch className="search-icon" />
               <input
                 type="text"
@@ -117,6 +117,7 @@ const Home = () => {
                   setSearchQuery(e.target.value);
                   setOpenDropdown(null);
                 }}
+                style={{ fontSize: '1.05rem' }}
               />
               {searchQuery && (
                 <button onClick={() => setSearchQuery('')} className="search-clear">
@@ -128,7 +129,7 @@ const Home = () => {
 
           {/* Service Category Dropdowns */}
           {!searchQuery && (
-            <div className="category-dropdowns" style={{ marginTop: '16px', display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div className="category-dropdowns" style={{ marginTop: '28px', display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
               {categories.map((category) => (
                 <button
                   key={category}
@@ -197,7 +198,7 @@ const Home = () => {
           )}
 
           {/* Motorbike Delivery Section */}
-          <div className="delivery-section" style={{ marginTop: searchQuery ? '40px' : '50px' }}>
+          <div className="delivery-section" style={{ marginTop: searchQuery ? '50px' : '60px' }}>
             <MotorbikeDelivery />
             <p className="delivery-text">Order Deliveries {businessInfo.phone}</p>
           </div>
