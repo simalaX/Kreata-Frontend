@@ -189,21 +189,52 @@ const Services = () => {
         <link rel="canonical" href="https://www.kreatadesigns.com/services" />
       </Helmet>
 
-      <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', paddingTop: '100px', paddingBottom: '60px' }}>
+      <div style={{
+        backgroundColor: 'var(--bg-primary)',
+        minHeight: '100vh',
+        paddingTop: '100px',
+        paddingBottom: '60px',
+        width: '100%',
+        display: 'block',
+        position: 'relative'
+      }}>
 
         {/* Header */}
-        <div style={{ maxWidth: '1180px', margin: '0 auto', padding: '0 24px', textAlign: 'center', marginBottom: '60px' }}>
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '16px', color: 'var(--text-primary)' }}>
+        <div style={{
+          maxWidth: '1180px',
+          margin: '0 auto',
+          padding: '0 24px',
+          textAlign: 'center',
+          marginBottom: '60px',
+          width: '100%'
+        }}>
+          <h1 style={{
+            fontSize: '2.5rem',
+            marginBottom: '16px',
+            color: 'var(--text-primary)',
+            margin: '0 0 16px 0',
+            fontWeight: '800'
+          }}>
             Our Services
           </h1>
-          <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', maxWidth: '640px', margin: '0 auto' }}>
+          <p style={{
+            fontSize: '1.05rem',
+            color: 'var(--text-secondary)',
+            maxWidth: '640px',
+            margin: '0 auto'
+          }}>
             Kreata Designs offers a complete range of document, government, education, business, design, and technical services — everything you need in one convenient location on Jogoo Road.
           </p>
         </div>
 
         {/* Services Grid */}
-        <div style={{ maxWidth: '1180px', margin: '0 auto', padding: '0 24px' }}>
-          {servicesCategories.map((category, catIndex) => {
+        <div style={{
+          maxWidth: '1180px',
+          margin: '0 auto',
+          padding: '0 24px',
+          width: '100%'
+        }}>
+          {servicesCategories && servicesCategories.length > 0 && servicesCategories.map((category, catIndex) => {
             const Icon = category.icon;
             const isExpanded = expandedIndex === catIndex;
 
@@ -217,6 +248,8 @@ const Services = () => {
                   borderRadius: '12px',
                   padding: '32px',
                   marginBottom: '32px',
+                  display: 'block',
+                  visibility: 'visible'
                 }}
               >
                 {/* Category Header */}
@@ -431,12 +464,18 @@ const Services = () => {
         )}
 
         {/* CTA Section */}
-        <div style={{ maxWidth: '1180px', margin: '60px auto 0', padding: '0 24px' }}>
+        <div style={{
+          maxWidth: '1180px',
+          margin: '60px auto 0',
+          padding: '0 24px',
+          width: '100%'
+        }}>
           <div style={{
             backgroundColor: 'var(--bg-secondary)',
             padding: '48px 32px',
             borderRadius: '12px',
             textAlign: 'center',
+            display: 'block'
           }}>
             <h2 style={{ fontSize: '1.75rem', marginBottom: '12px', color: 'var(--text-primary)' }}>
               Don't See What You Need?
