@@ -5,7 +5,12 @@ import { FaShieldAlt, FaPalette, FaCamera, FaWhatsapp, FaPhone } from 'react-ico
 import { businessInfo } from '../data/siteData';
 
 const Services = () => {
-  // Define services categories first
+  // State
+  const [expandedIndex, setExpandedIndex] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
+  const location = useLocation();
+
+  // Services Data
   const servicesCategories = [
     {
       name: 'Cyber Services',
@@ -154,11 +159,7 @@ const Services = () => {
     },
   ];
 
-  const [expandedIndex, setExpandedIndex] = useState(null);
-  const [selectedService, setSelectedService] = useState(null);
-  const location = useLocation();
-
-  // Check for category param in URL on load
+  // Effects
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const categoryParam = params.get('category');
@@ -168,7 +169,6 @@ const Services = () => {
       const categoryIndex = servicesCategories.findIndex(cat => cat.name === decodedCategory);
       if (categoryIndex !== -1) {
         setExpandedIndex(categoryIndex);
-        // Scroll to that category
         setTimeout(() => {
           const categoryElement = document.querySelector(`[data-category="${categoryIndex}"]`);
           if (categoryElement) {
@@ -179,6 +179,7 @@ const Services = () => {
     }
   }, [location.search]);
 
+  // Render
   return (
     <>
       <Helmet>
@@ -188,7 +189,8 @@ const Services = () => {
         <link rel="canonical" href="https://www.kreatadesigns.com/services" />
       </Helmet>
 
-      <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', paddingTop: '80px', paddingBottom: '60px' }}>
+      <div style={{ backgroundColor: 'var(--bg-primary)', minHeight: '100vh', paddingTop: '100px', paddingBottom: '60px' }}>
+
         {/* Header */}
         <div style={{ maxWidth: '1180px', margin: '0 auto', padding: '0 24px', textAlign: 'center', marginBottom: '60px' }}>
           <h1 style={{ fontSize: '2.5rem', marginBottom: '16px', color: 'var(--text-primary)' }}>
@@ -199,7 +201,7 @@ const Services = () => {
           </p>
         </div>
 
-        {/* Services */}
+        {/* Services Grid */}
         <div style={{ maxWidth: '1180px', margin: '0 auto', padding: '0 24px' }}>
           {servicesCategories.map((category, catIndex) => {
             const Icon = category.icon;
@@ -246,7 +248,7 @@ const Services = () => {
                   </div>
                 </div>
 
-                {/* Subcategories */}
+                {/* Subcategories - Expanded Content */}
                 {isExpanded && (
                   <div style={{ marginTop: '24px' }}>
                     {category.subcategories.map((subcat, subcatIndex) => (
@@ -313,7 +315,7 @@ const Services = () => {
           })}
         </div>
 
-        {/* Modal */}
+        {/* Service Detail Modal */}
         {selectedService && (
           <div
             onClick={() => setSelectedService(null)}
@@ -428,7 +430,7 @@ const Services = () => {
           </div>
         )}
 
-        {/* CTA */}
+        {/* CTA Section */}
         <div style={{ maxWidth: '1180px', margin: '60px auto 0', padding: '0 24px' }}>
           <div style={{
             backgroundColor: 'var(--bg-secondary)',
@@ -459,6 +461,7 @@ const Services = () => {
             </Link>
           </div>
         </div>
+
       </div>
     </>
   );
