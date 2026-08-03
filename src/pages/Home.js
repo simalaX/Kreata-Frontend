@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowRight, FaStar, FaWhatsapp, FaTimes, FaSearch, FaMoon, FaSun, FaChevronDown } from 'react-icons/fa';
+import { FaArrowRight, FaStar, FaWhatsapp, FaTimes, FaSearch, FaMoon, FaSun, FaChevronDown, FaPaintbrush, FaWandMagicSparkles } from 'react-icons/fa';
 import MotorbikeDelivery from '../components/MotorbikeDelivery';
 import servicesData from '../data/servicesData';
 import { businessInfo, whyUsPoints } from '../data/siteData';
@@ -97,26 +97,16 @@ const Home = () => {
         <div className="hero-shape hero-shape-2" />
         <div className="hero-content hero-content-centered" style={{ gap: '0px' }}>
           {/* Brand Logo */}
-          <div className="hero-logo-container" style={{ marginBottom: '16px' }}>
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 0 12px rgba(255, 192, 0, 0.6))' }}>
-              <circle cx="32" cy="32" r="24" fill="var(--accent-color)" opacity="0.9" />
-              <circle cx="32" cy="32" r="24" stroke="var(--accent-color)" strokeWidth="2" fill="none" opacity="0.5" />
-              <line x1="32" y1="8" x2="32" y2="20" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
-              <line x1="32" y1="44" x2="32" y2="56" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
-              <line x1="56" y1="32" x2="44" y2="32" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
-              <line x1="20" y1="32" x2="8" y2="32" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
-              <line x1="48.5" y1="15.5" x2="42.5" y2="21.5" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
-              <line x1="21.5" y1="42.5" x2="15.5" y2="48.5" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
-              <line x1="48.5" y1="48.5" x2="42.5" y2="42.5" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
-              <line x1="21.5" y1="21.5" x2="15.5" y2="15.5" stroke="var(--accent-color)" strokeWidth="2.5" strokeLinecap="round" />
-            </svg>
+          <div className="hero-logo-container" style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+            <FaPaintbrush size={48} style={{ color: 'var(--accent-color)', filter: 'drop-shadow(0 0 8px rgba(255, 192, 0, 0.5))' }} />
+            <span style={{ fontSize: '28px', color: 'var(--accent-color)', marginTop: '4px' }}>✨</span>
           </div>
 
           {/* Brand Title */}
-          <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0', marginBottom: '30px' }}>Kreata Designs</h1>
+          <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0', marginBottom: '24px', fontSize: '2.8rem' }}>Kreata Designs</h1>
 
           {/* Search Bar */}
-          <div className="home-search-container" style={{ marginTop: '0px', marginBottom: '30px' }}>
+          <div className="home-search-container" style={{ marginTop: '0px', marginBottom: '18px' }}>
             <div className="home-search-input">
               <FaSearch className="search-icon" />
               <input
@@ -138,7 +128,7 @@ const Home = () => {
 
           {/* Service Category Dropdowns */}
           {!searchQuery && (
-            <div className="category-dropdowns" style={{ marginTop: '20px', display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div className="category-dropdowns" style={{ marginTop: '16px', display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
               {categories.map((category) => (
                 <button
                   key={category}

@@ -5,23 +5,7 @@ import { FaShieldAlt, FaPalette, FaCamera, FaWhatsapp, FaPhone } from 'react-ico
 import { businessInfo } from '../data/siteData';
 
 const Services = () => {
-  const [expandedIndex, setExpandedIndex] = useState(null);
-  const [selectedService, setSelectedService] = useState(null);
-  const location = useLocation();
-
-  // Check for category param in URL on load
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const categoryParam = params.get('category');
-
-    if (categoryParam) {
-      const categoryIndex = servicesCategories.findIndex(cat => cat.name === decodeURIComponent(categoryParam));
-      if (categoryIndex !== -1) {
-        setExpandedIndex(categoryIndex);
-      }
-    }
-  }, [location.search]);
-
+  // Define services categories first
   const servicesCategories = [
     {
       name: 'Cyber Services',
@@ -170,6 +154,31 @@ const Services = () => {
     },
   ];
 
+  const [expandedIndex, setExpandedIndex] = useState(null);
+  const [selectedService, setSelectedService] = useState(null);
+  const location = useLocation();
+
+  // Check for category param in URL on load
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category');
+
+    if (categoryParam) {
+      const decodedCategory = decodeURIComponent(categoryParam);
+      const categoryIndex = servicesCategories.findIndex(cat => cat.name === decodedCategory);
+      if (categoryIndex !== -1) {
+        setExpandedIndex(categoryIndex);
+        // Scroll to that category
+        setTimeout(() => {
+          const categoryElement = document.querySelector(`[data-category="${categoryIndex}"]`);
+          if (categoryElement) {
+            categoryElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      }
+    }
+  }, [location.search]);
+
   return (
     <>
       <Helmet>
@@ -199,6 +208,7 @@ const Services = () => {
             return (
               <div
                 key={catIndex}
+                data-category={catIndex}
                 style={{
                   backgroundColor: 'var(--card-bg)',
                   border: '1px solid var(--border-color)',
