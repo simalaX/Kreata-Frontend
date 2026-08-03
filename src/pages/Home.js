@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaArrowRight, FaStar, FaWhatsapp, FaTimes, FaSearch, FaMoon, FaSun, FaChevronDown, FaPaintbrush, FaWandMagicSparkles } from 'react-icons/fa';
+import { FaArrowRight, FaStar, FaWhatsapp, FaTimes, FaSearch, FaMoon, FaSun, FaChevronDown } from 'react-icons/fa';
+import Logo from '../components/Logo';
 import MotorbikeDelivery from '../components/MotorbikeDelivery';
 import servicesData from '../data/servicesData';
 import { businessInfo, whyUsPoints } from '../data/siteData';
@@ -97,9 +98,8 @@ const Home = () => {
         <div className="hero-shape hero-shape-2" />
         <div className="hero-content hero-content-centered" style={{ gap: '0px' }}>
           {/* Brand Logo */}
-          <div className="hero-logo-container" style={{ marginBottom: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
-            <FaPaintbrush size={48} style={{ color: 'var(--accent-color)', filter: 'drop-shadow(0 0 8px rgba(255, 192, 0, 0.5))' }} />
-            <span style={{ fontSize: '28px', color: 'var(--accent-color)', marginTop: '4px' }}>✨</span>
+          <div className="hero-logo-container" style={{ marginBottom: '12px' }}>
+            <Logo size={64} />
           </div>
 
           {/* Brand Title */}
