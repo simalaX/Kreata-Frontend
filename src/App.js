@@ -16,7 +16,6 @@ import Contact from './pages/Contact';
 import Gallery from './pages/Gallery';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
-import Services from './pages/Services';
 import Terms from './pages/Terms';
 import Testimonials from './pages/Testimonials';
 import WhyUs from './pages/WhyUs';
@@ -31,7 +30,6 @@ const PublicSite = () => (
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/why-us" element={<WhyUs />} />
         <Route path="/testimonials" element={<Testimonials />} />
