@@ -13,6 +13,7 @@ const Home = () => {
   const [selectedService, setSelectedService] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [viewingCategory, setViewingCategory] = useState(null);
+  const [expandedSubcategories, setExpandedSubcategories] = useState({});
 
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -102,6 +103,14 @@ const Home = () => {
 
   const handleCategoryClick = (category) => {
     setViewingCategory(category);
+    setExpandedSubcategories({});
+  };
+
+  const toggleSubcategory = (subcategoryTitle) => {
+    setExpandedSubcategories(prev => ({
+      ...prev,
+      [subcategoryTitle]: !prev[subcategoryTitle]
+    }));
   };
 
   const getWhatsAppLink = (serviceName) => {
@@ -170,44 +179,70 @@ const Home = () => {
 
         {/* Services */}
         <div style={{ maxWidth: '1180px', margin: '0 auto', padding: '0 24px' }}>
-          {category.subcategories.map((subcat, idx) => (
-            <div key={idx} style={{ marginBottom: '40px' }}>
-              <h2 style={{ fontSize: '1.5rem', color: 'var(--accent-color)', marginBottom: '20px', borderBottom: '2px solid var(--accent-color)', paddingBottom: '10px' }}>
-                {subcat.title}
-              </h2>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
-                {subcat.services.map((service, sidx) => (
-                  <div
-                    key={sidx}
-                    onClick={() => setSelectedService({ name: service, category: subcat.title })}
-                    style={{
-                      padding: '16px',
-                      backgroundColor: 'var(--card-bg)',
-                      border: '1px solid var(--border-color)',
-                      borderRadius: '8px',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s',
-                      color: 'var(--text-secondary)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = 'rgba(255, 192, 0, 0.08)';
-                      e.currentTarget.style.borderColor = 'var(--accent-color)';
-                      e.currentTarget.style.transform = 'translateY(-2px)';
-                      e.currentTarget.style.color = 'var(--accent-color)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'var(--card-bg)';
-                      e.currentTarget.style.borderColor = 'var(--border-color)';
-                      e.currentTarget.style.transform = 'translateY(0)';
-                      e.currentTarget.style.color = 'var(--text-secondary)';
-                    }}
-                  >
-                    {service}
+          {category.subcategories.map((subcat, idx) => {
+            const isExpanded = expandedSubcategories[subcat.title];
+            return (
+              <div key={idx} style={{ marginBottom: '24px' }}>
+                {/* Dropdown Header */}
+                <div
+                  onClick={() => toggleSubcategory(subcat.title)}
+                  style={{
+                    fontSize: '1.5rem',
+                    color: 'var(--accent-color)',
+                    marginBottom: isExpanded ? '20px' : '0',
+                    borderBottom: '2px solid var(--accent-color)',
+                    paddingBottom: '10px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    userSelect: 'none',
+                    transition: 'all 0.3s'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.opacity = '0.8'}
+                  onMouseLeave={(e) => e.currentTarget.style.opacity = '1'}
+                >
+                  <span>{subcat.title}</span>
+                  <span style={{ fontSize: '1.2rem' }}>{isExpanded ? '▼' : '▶'}</span>
+                </div>
+
+                {/* Services Grid (Collapsed by default) */}
+                {isExpanded && (
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px', marginTop: '20px' }}>
+                    {subcat.services.map((service, sidx) => (
+                      <div
+                        key={sidx}
+                        onClick={() => setSelectedService({ name: service, category: subcat.title })}
+                        style={{
+                          padding: '16px',
+                          backgroundColor: 'var(--card-bg)',
+                          border: '1px solid var(--border-color)',
+                          borderRadius: '8px',
+                          cursor: 'pointer',
+                          transition: 'all 0.3s',
+                          color: 'var(--text-secondary)'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'rgba(255, 192, 0, 0.08)';
+                          e.currentTarget.style.borderColor = 'var(--accent-color)';
+                          e.currentTarget.style.transform = 'translateY(-2px)';
+                          e.currentTarget.style.color = 'var(--accent-color)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'var(--card-bg)';
+                          e.currentTarget.style.borderColor = 'var(--border-color)';
+                          e.currentTarget.style.transform = 'translateY(0)';
+                          e.currentTarget.style.color = 'var(--text-secondary)';
+                        }}
+                      >
+                        {service}
+                      </div>
+                    ))}
                   </div>
-                ))}
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* CTA */}
