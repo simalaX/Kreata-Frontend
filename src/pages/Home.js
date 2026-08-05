@@ -366,28 +366,28 @@ const Home = () => {
       </button>
 
       {/* Hero Section */}
-      <section className="hero hero-minimal" style={{ paddingTop: '60px', paddingBottom: '80px' }}>
+      <section className="hero hero-minimal" style={{ paddingTop: '100px', paddingBottom: '150px', paddingLeft: '40px', paddingRight: '40px' }}>
         <div className="hero-shape hero-shape-1" />
         <div className="hero-shape hero-shape-2" />
-        <div className="hero-content hero-content-centered" style={{ gap: '0px' }}>
+        <div className="hero-content hero-content-centered" style={{ gap: '0px', width: '100%' }}>
           {/* Brand Logo */}
-          <div className="hero-logo-container" style={{ marginBottom: '32px' }}>
-            <Logo size={180} />
+          <div className="hero-logo-container" style={{ marginBottom: '50px' }}>
+            <Logo size={160} />
           </div>
 
           {/* Brand Title */}
-          <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0', marginBottom: '52px', fontSize: '4rem', fontWeight: '800' }}>Kreata Designs</h1>
+          <h1 className="hero-brand-title" style={{ letterSpacing: '0.05em', marginTop: '0', marginBottom: '65px', fontSize: '3.8rem', fontWeight: '800' }}>Kreata Designs</h1>
 
-          {/* Search Bar */}
-          <div className="home-search-container" style={{ marginTop: '0px', marginBottom: '48px', maxWidth: '900px', margin: '0 auto 48px', width: '90%' }}>
-            <div className="home-search-input" style={{ padding: '22px 28px', fontSize: '1.2rem', minHeight: '74px', borderRadius: '50px' }}>
-              <FaSearch className="search-icon" style={{ fontSize: '1.3rem' }} />
+          {/* Search Bar - Stretched */}
+          <div className="home-search-container" style={{ marginTop: '0px', marginBottom: '60px', width: '85%', maxWidth: '1100px' }}>
+            <div className="home-search-input" style={{ padding: '20px 32px', fontSize: '1.15rem', minHeight: '72px', borderRadius: '50px' }}>
+              <FaSearch className="search-icon" style={{ fontSize: '1.2rem' }} />
               <input
                 type="text"
                 placeholder="Search services..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                style={{ fontSize: '1.2rem' }}
+                style={{ fontSize: '1.15rem' }}
               />
               {searchQuery && (
                 <button onClick={() => setSearchQuery('')} className="search-clear">
@@ -397,9 +397,9 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Service Category Buttons */}
+          {/* Service Category Buttons - Stretched */}
           {!searchQuery && (
-            <div className="category-dropdowns" style={{ marginTop: '50px', display: 'flex', gap: '28px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div className="category-dropdowns" style={{ marginTop: '60px', marginBottom: '65px', display: 'flex', gap: '22px', flexWrap: 'wrap', justifyContent: 'center', width: '100%', paddingLeft: '20px', paddingRight: '20px' }}>
               {categories.map((category) => (
                 <button
                   key={category}
@@ -408,21 +408,25 @@ const Home = () => {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '12px',
-                    padding: '16px 32px',
-                    border: '3px solid var(--accent-color)',
-                    borderRadius: '40px',
+                    justifyContent: 'center',
+                    gap: '10px',
+                    padding: '15px 30px',
+                    border: '2px solid var(--accent-color)',
+                    borderRadius: '45px',
                     backgroundColor: 'transparent',
                     color: 'var(--accent-color)',
                     fontWeight: '700',
                     cursor: 'pointer',
-                    fontSize: '1.15rem',
-                    transition: 'all 0.3s ease',
+                    fontSize: '1.08rem',
+                    transition: 'all 0.4s ease',
+                    minWidth: '200px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.03em'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = 'var(--accent-color)';
-                    e.currentTarget.style.color = 'var(--button-text)';
-                    e.currentTarget.style.transform = 'scale(1.08)';
+                    e.currentTarget.style.color = 'var(--bg-primary)';
+                    e.currentTarget.style.transform = 'scale(1.06)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = 'transparent';
@@ -431,7 +435,7 @@ const Home = () => {
                   }}
                 >
                   {category}
-                  <FaChevronDown size={16} />
+                  <FaChevronDown size={14} />
                 </button>
               ))}
             </div>
@@ -476,15 +480,45 @@ const Home = () => {
                 Clear Search
               </button>
             </div>
+
+            {/* Delivery Order Button */}
+          <div style={{ marginTop: '50px', marginBottom: '70px' }}>
+            <button
+              style={{
+                padding: '16px 40px',
+                border: '2px solid var(--accent-color)',
+                borderRadius: '45px',
+                backgroundColor: 'transparent',
+                color: 'var(--accent-color)',
+                fontWeight: '700',
+                cursor: 'pointer',
+                fontSize: '1.08rem',
+                transition: 'all 0.4s ease',
+                textTransform: 'uppercase',
+                letterSpacing: '0.03em'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--accent-color)';
+                e.currentTarget.style.color = 'var(--bg-primary)';
+                e.currentTarget.style.transform = 'scale(1.06)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+                e.currentTarget.style.color = 'var(--accent-color)';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
+            >
+              Order Our Delivery Services
+            </button>
+          </div>
           )}
 
-          {/* Motorbike Delivery Section */}
-          <div className="delivery-section" style={{ marginTop: searchQuery ? '60px' : '80px', paddingTop: '60px', paddingBottom: '60px' }}>
-            <div style={{ marginBottom: '32px', fontSize: '6rem', display: 'flex', justifyContent: 'center' }}>
+          {/* Motorbike Delivery Section - with dashed borders */}
+          <div className="delivery-section" style={{ marginTop: searchQuery ? '60px' : '0px', paddingTop: '70px', paddingBottom: '70px', width: '95%', borderTop: '2px dashed var(--accent-color)', borderBottom: '2px dashed var(--accent-color)' }}>
+            <div style={{ marginBottom: '35px', fontSize: '5.5rem', display: 'flex', justifyContent: 'center' }}>
               <MotorbikeDelivery />
             </div>
-            <p className="delivery-text" style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--accent-color)', marginBottom: '24px', letterSpacing: '0.05em' }}>ORDER OUR DELIVERY SERVICES</p>
-            <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', letterSpacing: '0.08em', fontWeight: '700' }}>FAST DELIVERY</p>
+            <p className="delivery-text" style={{ fontSize: '1.35rem', fontWeight: '800', color: 'var(--accent-color)', marginBottom: '0px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Fast Delivery</p>
           </div>
         </div>
       </section>
