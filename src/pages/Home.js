@@ -480,37 +480,39 @@ const Home = () => {
                 Clear Search
               </button>
             </div>
+          )}
 
-            {/* Delivery Order Button */}
-          <div style={{ marginTop: '50px', marginBottom: '70px' }}>
-            <button
-              style={{
-                padding: '16px 40px',
-                border: '2px solid var(--accent-color)',
-                borderRadius: '45px',
-                backgroundColor: 'transparent',
-                color: 'var(--accent-color)',
-                fontWeight: '700',
-                cursor: 'pointer',
-                fontSize: '1.08rem',
-                transition: 'all 0.4s ease',
-                textTransform: 'uppercase',
-                letterSpacing: '0.03em'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'var(--accent-color)';
-                e.currentTarget.style.color = 'var(--bg-primary)';
-                e.currentTarget.style.transform = 'scale(1.06)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'transparent';
-                e.currentTarget.style.color = 'var(--accent-color)';
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
-            >
-              Order Our Delivery Services
-            </button>
-          </div>
+          {/* Delivery Order Button */}
+          {!searchQuery && (
+            <div style={{ marginTop: '50px', marginBottom: '70px' }}>
+              <button
+                style={{
+                  padding: '16px 40px',
+                  border: '2px solid var(--accent-color)',
+                  borderRadius: '45px',
+                  backgroundColor: 'transparent',
+                  color: 'var(--accent-color)',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  fontSize: '1.08rem',
+                  transition: 'all 0.4s ease',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.03em'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--accent-color)';
+                  e.currentTarget.style.color = 'var(--bg-primary)';
+                  e.currentTarget.style.transform = 'scale(1.06)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.color = 'var(--accent-color)';
+                  e.currentTarget.style.transform = 'scale(1)';
+                }}
+              >
+                Order Our Delivery Services
+              </button>
+            </div>
           )}
 
           {/* Motorbike Delivery Section - with dashed borders */}
