@@ -366,28 +366,28 @@ const Home = () => {
       </button>
 
       {/* Hero Section */}
-      <section className="hero hero-minimal">
+      <section className="hero hero-minimal" style={{ paddingTop: '60px', paddingBottom: '80px' }}>
         <div className="hero-shape hero-shape-1" />
         <div className="hero-shape hero-shape-2" />
         <div className="hero-content hero-content-centered" style={{ gap: '0px' }}>
           {/* Brand Logo */}
-          <div className="hero-logo-container" style={{ marginBottom: '16px' }}>
-            <Logo size={90} />
+          <div className="hero-logo-container" style={{ marginBottom: '24px' }}>
+            <Logo size={140} />
           </div>
 
           {/* Brand Title */}
-          <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0', marginBottom: '32px', fontSize: '3.2rem' }}>Kreata Designs</h1>
+          <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0', marginBottom: '48px', fontSize: '3.6rem', fontWeight: '800' }}>Kreata Designs</h1>
 
           {/* Search Bar */}
-          <div className="home-search-container" style={{ marginTop: '0px', marginBottom: '28px', maxWidth: '600px', margin: '0 auto 28px' }}>
-            <div className="home-search-input" style={{ padding: '14px 20px', fontSize: '1.05rem', minHeight: '56px' }}>
+          <div className="home-search-container" style={{ marginTop: '0px', marginBottom: '40px', maxWidth: '700px', margin: '0 auto 40px' }}>
+            <div className="home-search-input" style={{ padding: '18px 24px', fontSize: '1.15rem', minHeight: '66px', borderRadius: '50px' }}>
               <FaSearch className="search-icon" />
               <input
                 type="text"
                 placeholder="Search services..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                style={{ fontSize: '1.05rem' }}
+                style={{ fontSize: '1.15rem' }}
               />
               {searchQuery && (
                 <button onClick={() => setSearchQuery('')} className="search-clear">
@@ -399,7 +399,7 @@ const Home = () => {
 
           {/* Service Category Buttons */}
           {!searchQuery && (
-            <div className="category-dropdowns" style={{ marginTop: '28px', display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div className="category-dropdowns" style={{ marginTop: '40px', display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
               {categories.map((category) => (
                 <button
                   key={category}
@@ -408,28 +408,30 @@ const Home = () => {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
-                    padding: '10px 18px',
+                    gap: '10px',
+                    padding: '14px 24px',
                     border: '2px solid var(--accent-color)',
-                    borderRadius: '25px',
+                    borderRadius: '35px',
                     backgroundColor: 'transparent',
                     color: 'var(--accent-color)',
-                    fontWeight: '600',
+                    fontWeight: '700',
                     cursor: 'pointer',
-                    fontSize: '0.95rem',
+                    fontSize: '1.05rem',
                     transition: 'all 0.3s ease',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = 'var(--accent-color)';
                     e.currentTarget.style.color = 'var(--button-text)';
+                    e.currentTarget.style.transform = 'scale(1.05)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = 'transparent';
                     e.currentTarget.style.color = 'var(--accent-color)';
+                    e.currentTarget.style.transform = 'scale(1)';
                   }}
                 >
                   {category}
-                  <FaChevronDown size={12} />
+                  <FaChevronDown size={14} />
                 </button>
               ))}
             </div>
@@ -437,18 +439,18 @@ const Home = () => {
 
           {/* Search Results Grid */}
           {searchQuery && filteredServices.length > 0 && (
-            <div className="home-services-grid" style={{ marginTop: '40px' }}>
+            <div className="home-services-grid" style={{ marginTop: '50px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '28px' }}>
               {filteredServices.map((service, idx) => (
                 <div
                   key={idx}
                   className="home-service-card"
                   onClick={() => setSelectedService({ name: service.name, category: service.category })}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', padding: '30px', textAlign: 'center' }}
                 >
-                  <div className="home-service-icon">
-                    <service.icon size={32} />
+                  <div className="home-service-icon" style={{ fontSize: '2.5rem', marginBottom: '16px' }}>
+                    <service.icon size={50} />
                   </div>
-                  <h3>{service.name}</h3>
+                  <h3 style={{ fontSize: '1.15rem' }}>{service.name}</h3>
                 </div>
               ))}
             </div>
@@ -468,28 +470,31 @@ const Home = () => {
           )}
 
           {/* Motorbike Delivery Section */}
-          <div className="delivery-section" style={{ marginTop: searchQuery ? '40px' : '60px' }}>
-            <MotorbikeDelivery />
-            <p className="delivery-text">Order Deliveries {businessInfo.phone}</p>
+          <div className="delivery-section" style={{ marginTop: searchQuery ? '50px' : '70px' }}>
+            <div style={{ marginBottom: '20px', fontSize: '5rem' }}>
+              <MotorbikeDelivery />
+            </div>
+            <p className="delivery-text" style={{ fontSize: '1.3rem', fontWeight: '700', color: 'var(--accent-color)', marginBottom: '20px' }}>ORDER OUR DELIVERY SERVICES</p>
+            <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', letterSpacing: '0.05em' }}>FAST DELIVERY</p>
           </div>
         </div>
       </section>
 
       {/* Why us preview */}
-      <section className="section section-alt" style={{ marginTop: '40px' }}>
-        <div className="section-header">
-          <h2>Why Choose Kreata Designs</h2>
+      <section className="section section-alt" style={{ marginTop: '60px', paddingTop: '80px', paddingBottom: '80px' }}>
+        <div className="section-header" style={{ marginBottom: '60px' }}>
+          <h2 style={{ fontSize: '2.2rem' }}>Why Choose Kreata Designs</h2>
         </div>
-        <div className="why-us-grid">
+        <div className="why-us-grid" style={{ gap: '40px' }}>
           {whyUsPoints.slice(0, 3).map((point) => (
-            <div className="why-us-card" key={point.title}>
-              <h3>{point.title}</h3>
-              <p>{point.description}</p>
+            <div className="why-us-card" key={point.title} style={{ padding: '40px', minHeight: '250px' }}>
+              <h3 style={{ fontSize: '1.4rem', marginBottom: '16px' }}>{point.title}</h3>
+              <p style={{ fontSize: '1.05rem', lineHeight: '1.8' }}>{point.description}</p>
             </div>
           ))}
         </div>
-        <div className="section-cta">
-          <Link to="/why-us" className="btn btn-outline">
+        <div className="section-cta" style={{ marginTop: '60px' }}>
+          <Link to="/why-us" className="btn btn-outline" style={{ padding: '16px 32px', fontSize: '1.05rem' }}>
             More Reasons to Choose Us
           </Link>
         </div>
@@ -497,25 +502,25 @@ const Home = () => {
 
       {/* Testimonials preview */}
       {testimonials.length > 0 && (
-        <section className="section">
-          <div className="section-header">
-            <h2>What Our Clients Say</h2>
+        <section className="section" style={{ paddingTop: '80px', paddingBottom: '80px', marginTop: '60px' }}>
+          <div className="section-header" style={{ marginBottom: '60px' }}>
+            <h2 style={{ fontSize: '2.2rem' }}>What Our Clients Say</h2>
           </div>
-          <div className="testimonials-grid">
+          <div className="testimonials-grid" style={{ gap: '40px' }}>
             {testimonials.map((t) => (
-              <div className="testimonial-card" key={t.id}>
-                <div className="testimonial-stars">
+              <div className="testimonial-card" key={t.id} style={{ padding: '40px', minHeight: '200px' }}>
+                <div className="testimonial-stars" style={{ marginBottom: '20px', fontSize: '1.3rem' }}>
                   {Array.from({ length: t.rating }).map((_, i) => (
                     <FaStar key={i} />
                   ))}
                 </div>
-                <p>"{t.message}"</p>
-                <strong>{t.name}</strong>
+                <p style={{ fontSize: '1.05rem', lineHeight: '1.8', marginBottom: '20px' }}>"{t.message}"</p>
+                <strong style={{ fontSize: '1.1rem' }}>{t.name}</strong>
               </div>
             ))}
           </div>
-          <div className="section-cta">
-            <Link to="/testimonials" className="btn btn-outline">
+          <div className="section-cta" style={{ marginTop: '60px' }}>
+            <Link to="/testimonials" className="btn btn-outline" style={{ padding: '16px 32px', fontSize: '1.05rem' }}>
               Read More Reviews
             </Link>
           </div>
@@ -523,11 +528,11 @@ const Home = () => {
       )}
 
       {/* Final CTA */}
-      <section className="cta-banner">
-        <h2>Visit Us Today on Jogoo Road</h2>
-        <p>Walk in, call, or message us on WhatsApp — we're ready to help with your design needs.</p>
+      <section className="cta-banner" style={{ paddingTop: '100px', paddingBottom: '100px', marginTop: '80px' }}>
+        <h2 style={{ fontSize: '2.6rem', marginBottom: '24px' }}>Visit Us Today on Jogoo Road</h2>
+        <p style={{ fontSize: '1.3rem', marginBottom: '40px' }}>Walk in, call, or message us on WhatsApp — we're ready to help with your design needs.</p>
         <div className="hero-actions">
-          <Link to="/contact" className="btn btn-primary">
+          <Link to="/contact" className="btn btn-primary" style={{ padding: '18px 40px', fontSize: '1.1rem', fontWeight: '700' }}>
             Get in Touch
           </Link>
         </div>
