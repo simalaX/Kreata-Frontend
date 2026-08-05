@@ -371,23 +371,23 @@ const Home = () => {
         <div className="hero-shape hero-shape-2" />
         <div className="hero-content hero-content-centered" style={{ gap: '0px' }}>
           {/* Brand Logo */}
-          <div className="hero-logo-container" style={{ marginBottom: '24px' }}>
-            <Logo size={140} />
+          <div className="hero-logo-container" style={{ marginBottom: '32px' }}>
+            <Logo size={180} />
           </div>
 
           {/* Brand Title */}
-          <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0', marginBottom: '48px', fontSize: '3.6rem', fontWeight: '800' }}>Kreata Designs</h1>
+          <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0', marginBottom: '52px', fontSize: '4rem', fontWeight: '800' }}>Kreata Designs</h1>
 
           {/* Search Bar */}
-          <div className="home-search-container" style={{ marginTop: '0px', marginBottom: '40px', maxWidth: '700px', margin: '0 auto 40px' }}>
-            <div className="home-search-input" style={{ padding: '18px 24px', fontSize: '1.15rem', minHeight: '66px', borderRadius: '50px' }}>
-              <FaSearch className="search-icon" />
+          <div className="home-search-container" style={{ marginTop: '0px', marginBottom: '48px', maxWidth: '900px', margin: '0 auto 48px', width: '90%' }}>
+            <div className="home-search-input" style={{ padding: '22px 28px', fontSize: '1.2rem', minHeight: '74px', borderRadius: '50px' }}>
+              <FaSearch className="search-icon" style={{ fontSize: '1.3rem' }} />
               <input
                 type="text"
                 placeholder="Search services..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                style={{ fontSize: '1.15rem' }}
+                style={{ fontSize: '1.2rem' }}
               />
               {searchQuery && (
                 <button onClick={() => setSearchQuery('')} className="search-clear">
@@ -399,7 +399,7 @@ const Home = () => {
 
           {/* Service Category Buttons */}
           {!searchQuery && (
-            <div className="category-dropdowns" style={{ marginTop: '40px', display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div className="category-dropdowns" style={{ marginTop: '50px', display: 'flex', gap: '28px', flexWrap: 'wrap', justifyContent: 'center' }}>
               {categories.map((category) => (
                 <button
                   key={category}
@@ -408,21 +408,21 @@ const Home = () => {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '10px',
-                    padding: '14px 24px',
-                    border: '2px solid var(--accent-color)',
-                    borderRadius: '35px',
+                    gap: '12px',
+                    padding: '16px 32px',
+                    border: '3px solid var(--accent-color)',
+                    borderRadius: '40px',
                     backgroundColor: 'transparent',
                     color: 'var(--accent-color)',
                     fontWeight: '700',
                     cursor: 'pointer',
-                    fontSize: '1.05rem',
+                    fontSize: '1.15rem',
                     transition: 'all 0.3s ease',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.backgroundColor = 'var(--accent-color)';
                     e.currentTarget.style.color = 'var(--button-text)';
-                    e.currentTarget.style.transform = 'scale(1.05)';
+                    e.currentTarget.style.transform = 'scale(1.08)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.backgroundColor = 'transparent';
@@ -431,7 +431,7 @@ const Home = () => {
                   }}
                 >
                   {category}
-                  <FaChevronDown size={14} />
+                  <FaChevronDown size={16} />
                 </button>
               ))}
             </div>
@@ -439,18 +439,26 @@ const Home = () => {
 
           {/* Search Results Grid */}
           {searchQuery && filteredServices.length > 0 && (
-            <div className="home-services-grid" style={{ marginTop: '50px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '28px' }}>
+            <div className="home-services-grid" style={{ marginTop: '60px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px', maxWidth: '1100px', margin: '60px auto 0' }}>
               {filteredServices.map((service, idx) => (
                 <div
                   key={idx}
                   className="home-service-card"
                   onClick={() => setSelectedService({ name: service.name, category: service.category })}
-                  style={{ cursor: 'pointer', padding: '30px', textAlign: 'center' }}
+                  style={{ cursor: 'pointer', padding: '36px', textAlign: 'center', borderRadius: '12px', backgroundColor: 'var(--card-bg)', border: '1px solid var(--border-color)', transition: 'all 0.3s' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'rgba(255, 192, 0, 0.08)';
+                    e.currentTarget.style.borderColor = 'var(--accent-color)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--card-bg)';
+                    e.currentTarget.style.borderColor = 'var(--border-color)';
+                  }}
                 >
-                  <div className="home-service-icon" style={{ fontSize: '2.5rem', marginBottom: '16px' }}>
-                    <service.icon size={50} />
+                  <div className="home-service-icon" style={{ fontSize: '3rem', marginBottom: '20px', color: 'var(--accent-color)' }}>
+                    <service.icon size={60} />
                   </div>
-                  <h3 style={{ fontSize: '1.15rem' }}>{service.name}</h3>
+                  <h3 style={{ fontSize: '1.2rem', color: 'var(--text-primary)', marginBottom: '8px' }}>{service.name}</h3>
                 </div>
               ))}
             </div>
@@ -458,11 +466,12 @@ const Home = () => {
 
           {/* Empty Search Message */}
           {searchQuery && filteredServices.length === 0 && (
-            <div className="empty-search" style={{ marginTop: '40px' }}>
-              <p>No services match your search</p>
+            <div className="empty-search" style={{ marginTop: '60px', paddingTop: '80px', paddingBottom: '80px', textAlign: 'center' }}>
+              <p style={{ fontSize: '1.3rem', marginBottom: '24px', color: 'var(--text-secondary)' }}>No services match your search</p>
               <button
                 className="btn btn-outline"
                 onClick={() => setSearchQuery('')}
+                style={{ padding: '14px 28px', fontSize: '1.05rem' }}
               >
                 Clear Search
               </button>
@@ -470,12 +479,12 @@ const Home = () => {
           )}
 
           {/* Motorbike Delivery Section */}
-          <div className="delivery-section" style={{ marginTop: searchQuery ? '50px' : '70px' }}>
-            <div style={{ marginBottom: '20px', fontSize: '5rem' }}>
+          <div className="delivery-section" style={{ marginTop: searchQuery ? '60px' : '80px', paddingTop: '60px', paddingBottom: '60px' }}>
+            <div style={{ marginBottom: '32px', fontSize: '6rem', display: 'flex', justifyContent: 'center' }}>
               <MotorbikeDelivery />
             </div>
-            <p className="delivery-text" style={{ fontSize: '1.3rem', fontWeight: '700', color: 'var(--accent-color)', marginBottom: '20px' }}>ORDER OUR DELIVERY SERVICES</p>
-            <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', letterSpacing: '0.05em' }}>FAST DELIVERY</p>
+            <p className="delivery-text" style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--accent-color)', marginBottom: '24px', letterSpacing: '0.05em' }}>ORDER OUR DELIVERY SERVICES</p>
+            <p style={{ fontSize: '1.25rem', color: 'var(--text-secondary)', letterSpacing: '0.08em', fontWeight: '700' }}>FAST DELIVERY</p>
           </div>
         </div>
       </section>
