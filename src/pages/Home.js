@@ -379,23 +379,21 @@ const Home = () => {
           <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0', marginBottom: '48px', fontSize: '3.6rem', fontWeight: '800' }}>Kreata Designs</h1>
 
           {/* Search Bar */}
-          <div style={{ marginTop: '0px', marginBottom: '20px', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', display: 'flex', justifyContent: 'center' }}>
-            <div className="home-search-container" style={{ padding: '0 24px', display: 'flex', justifyContent: 'center', width: '100%' }}>
-              <div className="home-search-input" style={{ padding: '18px 24px', fontSize: '1.15rem', minHeight: '66px', borderRadius: '50px', maxWidth: '3000px', width: '100%' }}>
-                <FaSearch className="search-icon" />
-                <input
-                  type="text"
-                  placeholder="Search services..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  style={{ fontSize: '1.15rem' }}
-                />
-                {searchQuery && (
-                  <button onClick={() => setSearchQuery('')} className="search-clear">
-                    <FaTimes />
-                  </button>
-                )}
-              </div>
+          <div style={{ marginTop: '0px', marginBottom: '20px', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', display: 'flex', justifyContent: 'center', padding: '0 24px' }}>
+            <div className="home-search-input" style={{ padding: '18px 24px', fontSize: '1.15rem', minHeight: '66px', borderRadius: '50px', maxWidth: '3000px', width: '100%' }}>
+              <FaSearch className="search-icon" />
+              <input
+                type="text"
+                placeholder="Search services..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                style={{ fontSize: '1.15rem' }}
+              />
+              {searchQuery && (
+                <button onClick={() => setSearchQuery('')} className="search-clear">
+                  <FaTimes />
+                </button>
+              )}
             </div>
           </div>
 
