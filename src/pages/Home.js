@@ -411,14 +411,14 @@ const Home = () => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '10px',
-                    padding: '14px 24px',
+                    padding: '16px 32px',
                     border: '2px solid var(--accent-color)',
                     borderRadius: '35px',
                     backgroundColor: 'transparent',
                     color: 'var(--accent-color)',
                     fontWeight: '700',
                     cursor: 'pointer',
-                    fontSize: '1.05rem',
+                    fontSize: '1.15rem',
                     transition: 'all 0.3s ease',
                   }}
                   onMouseEnter={(e) => {
