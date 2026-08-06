@@ -381,7 +381,7 @@ const Home = () => {
           {/* Search Bar */}
           <div style={{ marginTop: '0px', marginBottom: '20px', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', display: 'flex', justifyContent: 'center' }}>
             <div className="home-search-container" style={{ padding: '0 24px', display: 'flex', justifyContent: 'center', width: '100%' }}>
-              <div className="home-search-input" style={{ padding: '18px 24px', fontSize: '1.15rem', minHeight: '66px', borderRadius: '50px', maxWidth: '1000px', width: '90%' }}>
+              <div className="home-search-input" style={{ padding: '18px 24px', fontSize: '1.15rem', minHeight: '66px', borderRadius: '50px', maxWidth: '1500px', width: '90%' }}>
                 <FaSearch className="search-icon" />
                 <input
                   type="text"
