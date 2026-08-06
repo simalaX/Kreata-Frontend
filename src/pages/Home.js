@@ -401,7 +401,7 @@ const Home = () => {
 
           {/* Service Category Buttons */}
           {!searchQuery && (
-            <div className="category-dropdowns" style={{ marginTop: '40px', display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div className="category-dropdowns" style={{ marginTop: '20px', display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
               {categories.map((category) => (
                 <button
                   key={category}
