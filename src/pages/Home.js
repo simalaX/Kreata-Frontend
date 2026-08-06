@@ -163,7 +163,7 @@ const Home = () => {
           }}
           onClick={toggleTheme}
         >
-          {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
+          <FaSun size={20} />
         </button>
 
         {/* Header */}
@@ -362,7 +362,7 @@ const Home = () => {
         onClick={toggleTheme}
         aria-label="Toggle theme"
       >
-        {isDarkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
+        <FaSun size={20} />
       </button>
 
       {/* Hero Section */}
@@ -379,7 +379,7 @@ const Home = () => {
           <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0', marginBottom: '48px', fontSize: '3.6rem', fontWeight: '800' }}>Kreata Designs</h1>
 
           {/* Search Bar */}
-          <div className="home-search-container" style={{ marginTop: '0px', marginBottom: '40px', maxWidth: '700px', margin: '0 auto 40px' }}>
+          <div className="home-search-container" style={{ marginTop: '0px', marginBottom: '40px', width: 'calc(100% - 48px)', maxWidth: 'none', margin: '0 24px 40px 24px' }}>
             <div className="home-search-input" style={{ padding: '18px 24px', fontSize: '1.15rem', minHeight: '66px', borderRadius: '50px' }}>
               <FaSearch className="search-icon" />
               <input
