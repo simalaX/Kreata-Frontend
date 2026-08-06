@@ -379,8 +379,8 @@ const Home = () => {
           <h1 className="hero-brand-title" style={{ letterSpacing: '0.03em', marginTop: '0', marginBottom: '48px', fontSize: '3.6rem', fontWeight: '800' }}>Kreata Designs</h1>
 
           {/* Search Bar */}
-          <div style={{ marginTop: '0px', marginBottom: '20px', maxWidth: '2500px', marginLeft: 'auto', marginRight: 'auto', display: 'flex', justifyContent: 'center', padding: '0 24px', width: '100%' }}>
-            <div className="home-search-input" style={{ padding: '18px 24px', fontSize: '1.15rem', minHeight: '66px', borderRadius: '50px', width: '100%' }}>
+          <div style={{ marginTop: '0px', marginBottom: '20px', width: '100vw', marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', display: 'flex', justifyContent: 'center', padding: '0 24px' }}>
+            <div className="home-search-input" style={{ padding: '18px 24px', fontSize: '1.15rem', minHeight: '66px', borderRadius: '50px', maxWidth: '2500px', width: '100%' }}>
               <FaSearch className="search-icon" />
               <input
                 type="text"
@@ -396,8 +396,6 @@ const Home = () => {
               )}
             </div>
           </div>
-
-          {/* Service Category Buttons */}
           {!searchQuery && (
             <div className="category-dropdowns" style={{ marginTop: '0px', display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
               {categories.map((category) => (
